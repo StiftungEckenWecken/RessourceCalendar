@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>resourceCal - Documentation</title>
+    <link rel="stylesheet" href="node_modules/foundation-sites/css/foundation.min.css">
+    <link rel="stylesheet" href="node_modules/foundation-sites/css/normalize.min.css">
+    <link rel="stylesheet" href="datepickk-master/docs/doc.min.css">
+    <link rel="stylesheet" href="src/css/resourceCal.css">
+</head>
+<body>
+<script src="src/js/resourceCal.js"></script>
+<script src="dist/fastclick.js"></script>
+<div class="nav">
+    <h1>resourceCal<span> . js</span></h1>
+    <p>Made with <i class="fa fa-heart" style="color:#AA3F3F;"></i> by Lukas S. (based on <a
+            href="https://github.com/crsten/datepickk">crsten/datepickk</a> by Carsten J)</p>
+</div>
+
+<div class="container">
+    <div class="row align-center equal-height" style="margin-bottom:50px;">
+        <h1 class="center" style="margin-bottom:50px;"><span class="line"></span>Demo<span class="line"></span>
+        </h1>
+
+        <div class="col-xs-12" style="margin:50px 0;">
+            <script>
+                var now = new Date();
+                var cal = new ResourceCal({
+                    range: true,
+                    tooltips: {
+                        date: new Date(),
+                        text: 'Tooltip'
+                    },
+                    highlight: {
+                        start: new Date(now.getFullYear(), now.getMonth(), 3),
+                        end: new Date(now.getFullYear(), now.getMonth(), 6),
+                        backgroundColor: '#05676E',
+                        color: '#fff',
+                        legend: 'Highlight'
+                    }
+                });
+            </script>
+        </div>
+        <button class="orange" style="margin:0 auto;" onclick="cal.show();">
+            Modal<span>onclick="cal.show();"</span></button>
+    </div>
+
+</div>
+<script src="docs/demo.js"></script>
+</body>
+</html>
