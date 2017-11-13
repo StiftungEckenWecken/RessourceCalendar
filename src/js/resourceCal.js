@@ -522,17 +522,17 @@
             }
             if (input.checked) {
                 if (maxSelections && selectedDates.length > maxSelections - 1) {
-                    var length = selectedDates.length;
-                    for (length; length > maxSelections - 1; length--) {
-                        unselectDate(selectedDates[0]);
-                    }
-
+                    unselectAll()
                 }
 
                 if (range && selectedDates.length) {
                     var first = that.el.querySelector('[data-date="' + selectedDates[0].toJSON() + '"]');
-                    if (!first && date > selectedDates[0]) {
-                        that.el.tables.classList.add('before');
+                    if (date > selectedDates[0]) {
+                        if (!first) {
+                            that.el.tables.classList.add('before');
+                        }
+                    } else {
+                        unselectAll()
                     }
                 }
 
@@ -546,9 +546,9 @@
                     selectDate(date);
                     input.classList.add('single');
                 } else {
-                    selectedDates = selectedDates.filter(function (x) {
-                        return x.getTime() != date.getTime()
-                    })
+                    unselectAll();
+                    input.checked = true;
+                    selectedDates.push(date);
                 }
             }
 

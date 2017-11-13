@@ -24,7 +24,7 @@ module.exports = function (grunt) {
             },
 
             sass: {
-                files: 'src/scss/**/*.scss',
+                files: 'src/css/**/*.scss',
                 tasks: ['sass', 'postcss:dist']
             }
         },
