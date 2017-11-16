@@ -191,7 +191,7 @@ $spin: -15;
     width: 100%;
     z-index: 2;
     background-color: whitesmoke;
-    max-width: 500px;
+    max-width: 600px;
     position: relative;
     color: white;
 
@@ -221,6 +221,40 @@ $spin: -15;
     }
   }
 
+  .d-form {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 600px;
+    z-index: 2;
+    color: #4d4d4d;
+    justify-content: center;
+    background-color: white;
+
+    .d-form-field {
+      width: 50%;
+      padding: 2% 4%;
+      border-top: 1px solid #eaeaea;
+
+      & ~ .d-form-field {
+        border-left: 1px solid #eaeaea;
+      }
+
+      .d-form-field-h, .d-form-field-d, .d-form-field-t {
+        width: 100%;
+      }
+
+      .d-form-field-h {
+        font-weight: bold;
+      }
+
+      .d-form-field-d {
+        padding: .5rem;
+        font-size: .875rem;
+      }
+    }
+  }
+
   .d-calendar {
     margin: 0;
     background-color: white;
@@ -228,7 +262,7 @@ $spin: -15;
     font-size: 20px;
     width: 100%;
     position: relative;
-    max-width: 500px;
+    max-width: 600px;
     max-height: 560px;
     display: flex;
     flex-direction: column;
@@ -460,6 +494,8 @@ $spin: -15;
         position: relative;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         box-sizing: border-box;
+        margin-left: 0;
+        margin-right: 0;
 
         text {
           z-index: 9;

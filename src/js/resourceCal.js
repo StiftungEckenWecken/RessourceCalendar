@@ -18,27 +18,47 @@
             no: {
                 monthNames: ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'],
                 dayNames: ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'],
-                weekStart: 1
+                weekStart: 1,
+                startLabel: 'Start',
+                endLabel: 'End',
+                datePlaceholder: 'Date',
+                timePlaceholder: 'Time'
             },
             se: {
                 monthNames: ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'],
                 dayNames: ['sö', 'må', 'ti', 'on', 'to', 'fr', 'lö'],
-                weekStart: 1
+                weekStart: 1,
+                startLabel: 'Start',
+                endLabel: 'End',
+                datePlaceholder: 'Date',
+                timePlaceholder: 'Time'
             },
             ru: {
                 monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
                 dayNames: ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
-                weekStart: 1
+                weekStart: 1,
+                startLabel: 'Start',
+                endLabel: 'End',
+                datePlaceholder: 'Date',
+                timePlaceholder: 'Time'
             },
             en: {
                 monthNames: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
                 dayNames: ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'],
-                weekStart: 0
+                weekStart: 0,
+                startLabel: 'Start',
+                endLabel: 'End',
+                datePlaceholder: 'Date',
+                timePlaceholder: 'Time'
             },
             de: {
                 monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
                 dayNames: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-                weekStart: 1
+                weekStart: 1,
+                startLabel: 'Beginn',
+                endLabel: 'Ende',
+                datePlaceholder: 'Datum',
+                timePlaceholder: 'Uhrzeit'
             }
         };
 
@@ -165,6 +185,42 @@
                     } : null;
                 }
             }
+        }
+
+        function generateFormFields() {
+
+            generateFormField(
+                languages[lang].startLabel,
+                languages[lang].datePlaceholder,
+                languages[lang].timePlaceholder);
+            generateFormField(
+                languages[lang].endLabel,
+                languages[lang].datePlaceholder,
+                languages[lang].timePlaceholder);
+
+            function generateFormField(title, datePlaceholder, timePlaceholder) {
+                var field = document.createElement('div');
+                field.setAttribute('class', 'd-form-field');
+
+                var fieldHeadline = document.createElement('div');
+                fieldHeadline.setAttribute('class', 'd-form-field-h');
+                fieldHeadline.innerText = title;
+                field.appendChild(fieldHeadline);
+
+                var fieldDate = document.createElement('div');
+                fieldDate.setAttribute('class', 'd-form-field-d');
+                fieldDate.innerText = datePlaceholder;
+                field.appendChild(fieldDate);
+
+                var fieldTime = document.createElement('input');
+                fieldTime.setAttribute('class', 'd-form-field-t');
+                fieldTime.setAttribute('type', 'text');
+                fieldTime.setAttribute('placeholder', timePlaceholder);
+                field.appendChild(fieldTime);
+
+                that.el.form.appendChild(field);
+            }
+
         }
 
         function generateLegends() {
@@ -684,7 +740,7 @@
             that.el.innerHTML = template;
             that.el.calendar = that.el.childNodes[1];
             that.el.titleBox = that.el.childNodes[0];
-            that.el.button = that.el.childNodes[3];
+            that.el.button = that.el.childNodes[4];
             that.el.header = that.el.calendar.childNodes[0];
             that.el.monthPicker = that.el.calendar.childNodes[1];
             that.el.yearPicker = that.el.calendar.childNodes[2];
@@ -692,11 +748,13 @@
             that.el.days = that.el.calendar.childNodes[3];
             that.el.overlay = that.el.childNodes[4];
             that.el.legend = that.el.childNodes[2];
+            that.el.form = that.el.childNodes[3];
 
             setArgs(args);
 
             generateInputs();
             generateDaynames();
+            generateFormFields();
             bindEvents();
 
             if (inline) {
@@ -1224,6 +1282,7 @@
         '<div class="d-tables"></div>' +
         '</div>' +
         '<div class="d-legend"></div>' +
+        '<div class="d-form"></div>' +
         '<button class="d-confirm"></button>' +
         '<div class="d-overlay"></div>';
 
