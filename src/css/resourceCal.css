@@ -210,6 +210,12 @@
       .ResourceCal .d-form .d-form-field .d-form-field-d {
         padding: .5rem;
         font-size: .875rem; }
+
+.ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-clear-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-inner-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-outer-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+    margin: 0;
+}
   .ResourceCal .d-calendar {
     margin: 0;
     background-color: white;

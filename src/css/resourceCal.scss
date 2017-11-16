@@ -252,6 +252,15 @@ $spin: -15;
         padding: .5rem;
         font-size: .875rem;
       }
+
+      .d-form-field-t {
+
+        &::-webkit-clear-button, &::-webkit-inner-spin-button, &::-webkit-outer-spin-button, &::-webkit-calendar-picker-indicator {
+          display: none;
+          -webkit-appearance: none;
+          margin: 0
+        }
+      }
     }
   }
 

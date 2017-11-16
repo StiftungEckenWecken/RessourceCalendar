@@ -190,15 +190,13 @@
         function generateFormFields() {
 
             generateFormField(
-                languages[lang].startLabel,
-                languages[lang].datePlaceholder,
-                languages[lang].timePlaceholder);
+                'start', languages[lang].startLabel, languages[lang].datePlaceholder, languages[lang].timePlaceholder
+            );
             generateFormField(
-                languages[lang].endLabel,
-                languages[lang].datePlaceholder,
-                languages[lang].timePlaceholder);
+                'end', languages[lang].endLabel, languages[lang].datePlaceholder, languages[lang].timePlaceholder
+            );
 
-            function generateFormField(title, datePlaceholder, timePlaceholder) {
+            function generateFormField(name, title, datePlaceholder, timePlaceholder) {
                 var field = document.createElement('div');
                 field.setAttribute('class', 'd-form-field');
 
@@ -209,13 +207,18 @@
 
                 var fieldDate = document.createElement('div');
                 fieldDate.setAttribute('class', 'd-form-field-d');
+                fieldDate.setAttribute('data-date-field', name);
                 fieldDate.innerText = datePlaceholder;
                 field.appendChild(fieldDate);
 
                 var fieldTime = document.createElement('input');
                 fieldTime.setAttribute('class', 'd-form-field-t');
-                fieldTime.setAttribute('type', 'text');
+                fieldTime.setAttribute('data-time-field', name);
+                fieldTime.setAttribute('type', 'time');
+                fieldTime.setAttribute('steps', '5');
+                fieldTime.setAttribute('value', 'now');
                 fieldTime.setAttribute('placeholder', timePlaceholder);
+                fieldTime.disabled = true;
                 field.appendChild(fieldTime);
 
                 that.el.form.appendChild(field);
@@ -608,10 +611,34 @@
                 }
             }
 
+            if (maxSelections === 2) {
+                console.log(selectedDates)
+                setDateField('start', selectedDates[0] ? new Date(selectedDates[0]) : languages[lang].datePlaceholder);
+                setDateField('end', selectedDates[1] ? new Date(selectedDates[1]) : languages[lang].datePlaceholder);
+
+                setDisabledOfTimeField('start', !!(selectedDates[0] && selectedDates[1]));
+                setDisabledOfTimeField('end', !!(selectedDates[0] && selectedDates[1]));
+            }
+
             if (onSelect) {
                 onSelect.call(date, input.checked);
             }
         };
+
+        function setDateField(name, date) {
+            var field = that.el.form.querySelector('[data-date-field="' + name + '"]');
+            field.innerText = date instanceof Date ? date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear() : date;
+        }
+
+        function setDisabledOfTimeField(name, x) {
+            var input = that.el.form.querySelector('[data-time-field="' + name + '"]');
+            if (x) {
+                input.disabled = false;
+            } else {
+                input.disabled = true;
+            }
+            console.log(x, name, input.disabled)
+        }
 
         function setRange(val) {
             if (val) {
