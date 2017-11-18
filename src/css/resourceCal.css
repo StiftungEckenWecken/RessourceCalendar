@@ -210,12 +210,21 @@
       .ResourceCal .d-form .d-form-field .d-form-field-d {
         padding: .5rem;
         font-size: .875rem; }
-
-.ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-clear-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-inner-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-outer-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-    margin: 0;
-}
+      .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-clear-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-inner-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-outer-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+        margin: 0; }
+      .ResourceCal .d-form .d-form-field .d-form-field-t-fallback {
+        width: 100%; }
+        .ResourceCal .d-form .d-form-field .d-form-field-t-fallback:before, .ResourceCal .d-form .d-form-field .d-form-field-t-fallback:after {
+          content: " ";
+          display: table; }
+        .ResourceCal .d-form .d-form-field .d-form-field-t-fallback:after {
+          clear: both; }
+        .ResourceCal .d-form .d-form-field .d-form-field-t-fallback span {
+          display: block;
+          float: left;
+          width: 50%; }
   .ResourceCal .d-calendar {
     margin: 0;
     background-color: white;
@@ -380,9 +389,10 @@
       text-align: center; }
       .ResourceCal .d-week > div p {
         margin: .8em 0; }
-    @media (max-height: 540px) {
-      .ResourceCal .d-week {
-        display: none; } }
+        @media (max-height: 540px) {
+          .ResourceCal .d-week > div p {
+            margin: .1em 0;
+            font-size: .8rem; } }
   .ResourceCal .d-table {
     width: 100%;
     display: -webkit-box;

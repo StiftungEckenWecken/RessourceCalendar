@@ -196,6 +196,65 @@
                 'end', languages[lang].endLabel, languages[lang].datePlaceholder, languages[lang].timePlaceholder
             );
 
+            function generateTimeFormFieldFallback(name, timeInput) {
+
+                function generateOptions(start, max, step, select) {
+                    for (var i = start; i <= max; i = i = i + step) {
+                        var option = document.createElement('option');
+                        option.textContent = (i < 10) ? ('0' + i) : i;
+                        select.appendChild(option);
+                    }
+                }
+
+                function setMinutesToZero() {
+                    minuteSelect.value = '00';
+                }
+
+                function setTime() {
+                    timeInput.value = hourSelect.value + ':' + minuteSelect.value;
+                }
+
+                var fallbackTime = document.createElement('div');
+                fallbackTime.setAttribute('class', 'd-form-field-t-fallback');
+
+                var hourSpan = document.createElement('span');
+                var hourLabel = document.createElement('label');
+                hourLabel.setAttribute('for', 'hour');
+                var hourSelect = document.createElement('select');
+                hourSelect.setAttribute('id', 'hour');
+                hourSelect.setAttribute('name', 'hour');
+                hourSelect.setAttribute('data-time-field', name + '-hour');
+                hourSelect.disabled = true;
+                generateOptions(0, 23, 1, hourSelect);
+
+                hourSelect.value = name === 'start' ? '00' : '23';
+                hourSelect.onchange = setMinutesToZero;
+                hourSelect.onchange = setTime;
+
+                hourSpan.appendChild(hourLabel);
+                hourSpan.appendChild(hourSelect);
+
+                var minuteSpan = document.createElement('span');
+                var minuteLabel = document.createElement('label');
+                minuteLabel.setAttribute('for', 'minute');
+                var minuteSelect = document.createElement('select');
+                minuteSelect.setAttribute('id', 'minute');
+                minuteSelect.setAttribute('name', 'minute');
+                minuteSelect.setAttribute('data-time-field', name + '-minute');
+                minuteSelect.disabled = true;
+                generateOptions(0, 55, 5, minuteSelect);
+
+                minuteSelect.value = name === 'start' ? '00' : '55';
+                minuteSelect.onchange = setTime;
+
+                minuteSpan.appendChild(minuteLabel);
+                minuteSpan.appendChild(minuteSelect);
+
+                fallbackTime.appendChild(hourSpan);
+                fallbackTime.appendChild(minuteSpan);
+                return fallbackTime;
+            }
+
             function generateFormField(name, title, datePlaceholder, timePlaceholder) {
                 var field = document.createElement('div');
                 field.setAttribute('class', 'd-form-field');
@@ -208,6 +267,7 @@
                 var fieldDate = document.createElement('div');
                 fieldDate.setAttribute('class', 'd-form-field-d');
                 fieldDate.setAttribute('data-date-field', name);
+                fieldDate.setAttribute('value', new Date());
                 fieldDate.innerText = datePlaceholder;
                 field.appendChild(fieldDate);
 
@@ -216,10 +276,17 @@
                 fieldTime.setAttribute('data-time-field', name);
                 fieldTime.setAttribute('type', 'time');
                 fieldTime.setAttribute('steps', '5');
-                fieldTime.setAttribute('value', 'now');
+                fieldTime.setAttribute('value', name === 'start' ? '00:00' : '23:55');
                 fieldTime.setAttribute('placeholder', timePlaceholder);
                 fieldTime.disabled = true;
+
                 field.appendChild(fieldTime);
+
+                if (fieldTime.type === 'text') {
+                    fieldTime.style.display = 'none';
+
+                    field.appendChild(generateTimeFormFieldFallback(name, fieldTime));
+                }
 
                 that.el.form.appendChild(field);
             }
@@ -632,11 +699,17 @@
 
         function setDisabledOfTimeField(name, x) {
             var input = that.el.form.querySelector('[data-time-field="' + name + '"]');
-            if (x) {
-                input.disabled = false;
-            } else {
-                input.disabled = true;
+
+            if (input.style.display === 'none') {
+                console.log('fallback', input.nextElementSibling);
+                var fallbackHourSelect = input.nextElementSibling.querySelector('[data-time-field="' + name + '-hour"]');
+                var fallbackMinuteSelect = input.nextElementSibling.querySelector('[data-time-field="' + name + '-minute"]');
+
+                fallbackHourSelect.disabled = !x;
+                fallbackMinuteSelect.disabled = !x;
             }
+
+            input.disabled = !x;
             console.log(x, name, input.disabled)
         }
 
