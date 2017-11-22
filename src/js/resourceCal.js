@@ -201,7 +201,7 @@
                 'end', languages[lang].endLabel, languages[lang].datePlaceholder, languages[lang].timePlaceholder
             );
 
-            var amountSelectField = generateSelectField('amount', languages[lang].amountLabel)
+            var amountSelectField = generateSelectField('amount', languages[lang].amountLabel);
 
             that.el.form.appendChild(startDateField);
             that.el.form.appendChild(endDateField);
@@ -298,6 +298,8 @@
                     field.appendChild(generateTimeFormFieldFallback(name, fieldTime));
                 }
 
+                fieldTime.addEventListener('change', timeChange);
+
                 return field;
             }
 
@@ -306,13 +308,21 @@
                 field.setAttribute('class', 'd-form-field');
 
                 var fieldHeadline = document.createElement('div');
-                fieldHeadline.setAttribute('class', 'd-form-field-h');
+                fieldHeadline.setAttribute('class', 'd-form-field-h d-form-field-inline');
                 fieldHeadline.innerText = title;
                 field.appendChild(fieldHeadline);
 
                 var fieldAmount = document.createElement('select');
-                fieldAmount.setAttribute('class', 'd-form-field-s');
-                fieldAmount.setAttribute('data-date-field', name);
+                fieldAmount.setAttribute('class', 'd-form-field-s d-form-field-inline');
+                fieldAmount.setAttribute('data-field', name);
+                fieldAmount.disabled = true;
+
+                var placeholderOption = document.createElement('option');
+                placeholderOption.value = '0';
+                placeholderOption.selected = true;
+                placeholderOption.innerText = '0';
+
+                fieldAmount.appendChild(placeholderOption);
 
                 field.appendChild(fieldAmount);
 
@@ -639,9 +649,10 @@
         };
 
         function unselectDate(date, ignoreOnSelect) {
-            date = new Date(date);
-            date.setHours(0, 0, 0, 0);
-            var el = that.el.querySelector('[data-date="' + date.toJSON() + '"]');
+            var _date = new Date(date);
+            _date.setHours(0, 0, 0, 0);
+
+            var el = that.el.querySelector('[data-date="' + _date.toJSON() + '"]');
             if (el) {
                 el.classList.remove('single');
                 if (el.checked) {
@@ -654,7 +665,7 @@
             });
 
             if (onSelect && !ignoreOnSelect) {
-                onSelect.call(date, false);
+                onSelect.call(_date, false);
             }
         };
 
@@ -675,7 +686,8 @@
                 that.el.tables.classList.remove('before');
             }
             if (input.checked) {
-                if (maxSelections && selectedDates.length > maxSelections - 1) {
+
+                if (maxSelections && (selectedDates.length > maxSelections - 1)) {
                     unselectAll()
                 }
 
@@ -696,7 +708,7 @@
                     that.hide();
                 }
             } else {
-                if (range && selectedDates.length == 1 && selectedDates[0].getTime() == date.getTime()) {
+                if (range && selectedDates.length == 1 && getDayString(selectedDates[0]) === getDayString(date)) {
                     selectDate(date);
                     input.classList.add('single');
                 } else {
@@ -713,6 +725,10 @@
 
                 setDisabledOfTimeField('start', !!(selectedDates[0] && selectedDates[1]));
                 setDisabledOfTimeField('end', !!(selectedDates[0] && selectedDates[1]));
+
+                if (!!(selectedDates[0] && selectedDates[1])) {
+                    setTimeField('end');
+                }
             }
 
             if (onSelect) {
@@ -720,9 +736,38 @@
             }
         };
 
+        function timeChange(e) {
+            var input = e.currentTarget;
+            var name = input.getAttribute('data-time-field');
+            var time = input.value.split(':');
+            var date = selectedDates[name === 'start' ? 0 : 1];
+
+            date.setHours(time[0]);
+            date.setMinutes(time[1]);
+        }
+
         function setDateField(name, date) {
             var field = that.el.form.querySelector('[data-date-field="' + name + '"]');
             field.innerText = date instanceof Date ? date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear() : date;
+        }
+
+        function setTimeField(name) {
+            var input = that.el.form.querySelector('[data-time-field="' + name + '"]');
+            var index = name === 'start' ? 0 : 1;
+
+            selectedDates[index] = setTimeOfDateFromTimeField(selectedDates[index], input.value);
+        }
+
+        function setTimeOfDateFromTimeField(date, time) {
+            time = time.split(':');
+            date.setHours(time[0], time[1]);
+
+            return date;
+        }
+
+        function getDayString(date) {
+            return date.getDate() + date.getMonth() + date.getFullYear();
+            ;
         }
 
         function setDisabledOfTimeField(name, x) {
@@ -738,7 +783,11 @@
             }
 
             input.disabled = !x;
-            console.log(x, name, input.disabled)
+        }
+
+        function setDisabledOfSelectField(x) {
+            var input = that.el.form.querySelector('[data-field="amount"]');
+            input.disabled = !x;
         }
 
         function setRange(val) {
@@ -875,10 +924,8 @@
             that.el.tables = that.el.calendar.childNodes[4];
             that.el.legend = that.el.childNodes[2];
             that.el.form = that.el.childNodes[3];
-            that.el.button = that.el.childNodes[4];
+            that.el.button = that.el.childNodes[4].childNodes[0];
             that.el.overlay = that.el.childNodes[5];
-
-            console.log(that.el.button)
 
             setArgs(args);
 
@@ -942,7 +989,7 @@
                     } else {
                         button = null;
                     }
-                    that.el.button.innerHTML = (button) ? button : '';
+                    that.el.button.innerText = (button) ? button : '';
                 }
             },
             "title": {
@@ -1413,7 +1460,7 @@
         '</div>' +
         '<div class="d-legend"></div>' +
         '<div class="d-form"></div>' +
-        '<div class="d-confirm"></div>' +
+        '<div class="d-confirm">' +
         '<button class="d-confirm-button"></button>' +
         '</div>' +
         '<div class="d-overlay"></div>';

@@ -79,22 +79,22 @@ $spin: -15;
 
   .d-confirm {
     position: relative;
+    display: flex;
+    box-sizing: border-box;
     z-index: 2;
     width: 100%;
     max-width: 600px;
-    padding: 1% 4%;
     background-color: white;
 
     .d-confirm-button {
       width: 100%;
       outline: none;
       font-family: inherit;
-      font-size: 30px;
-      font-weight: 500;
       color: white;
       cursor: pointer;
-      padding: 0;
       z-index: 2;
+      margin: 2% 4%;
+      padding: 1%;
     }
   }
 
@@ -238,6 +238,9 @@ $spin: -15;
     background-color: white;
 
     .d-form-field {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
       width: 100%;
       padding: 2% 4%;
       border-top: 1px solid #eaeaea;
@@ -250,8 +253,23 @@ $spin: -15;
         border-left: 1px solid #eaeaea;
       }
 
-      .d-form-field-h, .d-form-field-d, .d-form-field-t {
+      .d-form-field-h, .d-form-field-d, .d-form-field-t, .d-form-field-s {
         width: 100%;
+
+        &.d-form-field-inline {
+          display: inline-block;
+          width: auto;
+        }
+      }
+
+      .d-form-field-d, .d-form-field-t, .d-form-field-s {
+
+        &.d-form-field-inline {
+
+          @media(max-width: 426px) {
+            flex-grow: 2;
+          }
+        }
       }
 
       .d-form-field-h {
@@ -271,6 +289,12 @@ $spin: -15;
           -webkit-appearance: none;
           margin: 0
         }
+      }
+
+      .d-form-field-s {
+        margin-left: 15px;
+        padding-right: 20px;
+        min-width: 80px;
       }
 
       .d-form-field-t-fallback {

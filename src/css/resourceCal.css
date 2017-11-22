@@ -77,10 +77,14 @@
     z-index: 2; }
   .ResourceCal .d-confirm {
     position: relative;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
       z-index: 2;
       width: 100%;
       max-width: 600px;
-      padding: 1% 4%;
       background-color: white;
   }
 
@@ -88,12 +92,11 @@
     width: 100%;
     outline: none;
     font-family: inherit;
-    font-size: 30px;
-    font-weight: 500;
     color: white;
     cursor: pointer;
-    padding: 0;
     z-index: 2;
+    margin: 2% 4%;
+    padding: 1%;
 }
   .ResourceCal .d-title:empty, .ResourceCal .d-confirm:empty {
     display: none; }
@@ -205,6 +208,14 @@
             justify-content: center;
     background-color: white; }
     .ResourceCal .d-form .d-form-field {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
         width: 100%;
       padding: 2% 4%;
       border-top: 1px solid #eaeaea; }
@@ -214,8 +225,22 @@
 }
       .ResourceCal .d-form .d-form-field ~ .d-form-field {
         border-left: 1px solid #eaeaea; }
-      .ResourceCal .d-form .d-form-field .d-form-field-h, .ResourceCal .d-form .d-form-field .d-form-field-d, .ResourceCal .d-form .d-form-field .d-form-field-t {
+
+.ResourceCal .d-form .d-form-field .d-form-field-h, .ResourceCal .d-form .d-form-field .d-form-field-d, .ResourceCal .d-form .d-form-field .d-form-field-t, .ResourceCal .d-form .d-form-field .d-form-field-s {
         width: 100%; }
+
+.ResourceCal .d-form .d-form-field .d-form-field-h.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-d.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-t.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-s.d-form-field-inline {
+    display: inline-block;
+    width: auto;
+}
+
+@media (max-width: 426px) {
+    .ResourceCal .d-form .d-form-field .d-form-field-d.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-t.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-s.d-form-field-inline {
+        -webkit-box-flex: 2;
+        -ms-flex-positive: 2;
+        flex-grow: 2;
+    }
+}
       .ResourceCal .d-form .d-form-field .d-form-field-h {
         font-weight: bold; }
       .ResourceCal .d-form .d-form-field .d-form-field-d {
@@ -230,6 +255,12 @@
     display: none;
     -webkit-appearance: none;
     margin: 0;
+}
+
+.ResourceCal .d-form .d-form-field .d-form-field-s {
+    margin-left: 15px;
+    padding-right: 20px;
+    min-width: 80px;
 }
       .ResourceCal .d-form .d-form-field .d-form-field-t-fallback {
         width: 100%; }
