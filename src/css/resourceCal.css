@@ -76,18 +76,25 @@
     margin: 25px 0;
     z-index: 2; }
   .ResourceCal .d-confirm {
-    border: none;
     position: relative;
-    background-color: transparent;
+      z-index: 2;
+      width: 100%;
+      max-width: 600px;
+      padding: 1% 4%;
+      background-color: white;
+  }
+
+.ResourceCal .d-confirm .d-confirm-button {
+    width: 100%;
     outline: none;
     font-family: inherit;
     font-size: 30px;
     font-weight: 500;
     color: white;
-    margin: 25px 0;
     cursor: pointer;
     padding: 0;
-    z-index: 2; }
+    z-index: 2;
+}
   .ResourceCal .d-title:empty, .ResourceCal .d-confirm:empty {
     display: none; }
   @media (max-height: 528px) {
@@ -198,9 +205,13 @@
             justify-content: center;
     background-color: white; }
     .ResourceCal .d-form .d-form-field {
-      width: 50%;
+        width: 100%;
       padding: 2% 4%;
       border-top: 1px solid #eaeaea; }
+
+.ResourceCal .d-form .d-form-field.d-form-field-half {
+    width: 50%;
+}
       .ResourceCal .d-form .d-form-field ~ .d-form-field {
         border-left: 1px solid #eaeaea; }
       .ResourceCal .d-form .d-form-field .d-form-field-h, .ResourceCal .d-form .d-form-field .d-form-field-d, .ResourceCal .d-form .d-form-field .d-form-field-t {
@@ -210,10 +221,16 @@
       .ResourceCal .d-form .d-form-field .d-form-field-d {
         padding: .5rem;
         font-size: .875rem; }
-      .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-clear-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-inner-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-outer-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-calendar-picker-indicator {
-        display: none;
-        -webkit-appearance: none;
-        margin: 0; }
+
+.ResourceCal .d-form .d-form-field .d-form-field-t {
+    margin: 0;
+}
+
+.ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-clear-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-inner-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-outer-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+    margin: 0;
+}
       .ResourceCal .d-form .d-form-field .d-form-field-t-fallback {
         width: 100%; }
         .ResourceCal .d-form .d-form-field .d-form-field-t-fallback:before, .ResourceCal .d-form .d-form-field .d-form-field-t-fallback:after {
@@ -234,7 +251,7 @@
     width: 100%;
     position: relative;
     max-width: 600px;
-    max-height: 560px;
+      max-height: 450px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -388,7 +405,8 @@
           flex-basis: calc(100% / 7);
       text-align: center; }
       .ResourceCal .d-week > div p {
-        margin: .8em 0; }
+          margin: .3em 0;
+      }
         @media (max-height: 540px) {
           .ResourceCal .d-week > div p {
             margin: .1em 0;

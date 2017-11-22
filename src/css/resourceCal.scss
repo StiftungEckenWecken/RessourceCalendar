@@ -78,18 +78,24 @@ $spin: -15;
   }
 
   .d-confirm {
-    border: none;
     position: relative;
-    background-color: transparent;
-    outline: none;
-    font-family: inherit;
-    font-size: 30px;
-    font-weight: 500;
-    color: white;
-    margin: 25px 0;
-    cursor: pointer;
-    padding: 0;
     z-index: 2;
+    width: 100%;
+    max-width: 600px;
+    padding: 1% 4%;
+    background-color: white;
+
+    .d-confirm-button {
+      width: 100%;
+      outline: none;
+      font-family: inherit;
+      font-size: 30px;
+      font-weight: 500;
+      color: white;
+      cursor: pointer;
+      padding: 0;
+      z-index: 2;
+    }
   }
 
   .d-title:empty, .d-confirm:empty {
@@ -232,9 +238,13 @@ $spin: -15;
     background-color: white;
 
     .d-form-field {
-      width: 50%;
+      width: 100%;
       padding: 2% 4%;
       border-top: 1px solid #eaeaea;
+
+      &.d-form-field-half {
+        width: 50%;
+      }
 
       & ~ .d-form-field {
         border-left: 1px solid #eaeaea;
@@ -254,6 +264,7 @@ $spin: -15;
       }
 
       .d-form-field-t {
+        margin: 0;
 
         &::-webkit-clear-button, &::-webkit-inner-spin-button, &::-webkit-outer-spin-button, &::-webkit-calendar-picker-indicator {
           display: none;
@@ -290,7 +301,7 @@ $spin: -15;
     width: 100%;
     position: relative;
     max-width: 600px;
-    max-height: 560px;
+    max-height: 450px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -476,7 +487,7 @@ $spin: -15;
       text-align: center;
 
       p {
-        margin: .8em 0;
+        margin: .3em 0;
 
         @media(max-height: 540px) {
           margin: .1em 0;

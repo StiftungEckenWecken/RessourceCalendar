@@ -21,6 +21,7 @@
                 weekStart: 1,
                 startLabel: 'Start',
                 endLabel: 'End',
+                amountLabel: 'Amount',
                 datePlaceholder: 'Date',
                 timePlaceholder: 'Time'
             },
@@ -30,6 +31,7 @@
                 weekStart: 1,
                 startLabel: 'Start',
                 endLabel: 'End',
+                amountLabel: 'Amount',
                 datePlaceholder: 'Date',
                 timePlaceholder: 'Time'
             },
@@ -39,6 +41,7 @@
                 weekStart: 1,
                 startLabel: 'Start',
                 endLabel: 'End',
+                amountLabel: 'Amount',
                 datePlaceholder: 'Date',
                 timePlaceholder: 'Time'
             },
@@ -48,6 +51,7 @@
                 weekStart: 0,
                 startLabel: 'Start',
                 endLabel: 'End',
+                amountLabel: 'Amount',
                 datePlaceholder: 'Date',
                 timePlaceholder: 'Time'
             },
@@ -57,6 +61,7 @@
                 weekStart: 1,
                 startLabel: 'Beginn',
                 endLabel: 'Ende',
+                amountLabel: 'Verfügbare Anzahl',
                 datePlaceholder: 'Datum',
                 timePlaceholder: 'Uhrzeit'
             }
@@ -189,12 +194,18 @@
 
         function generateFormFields() {
 
-            generateFormField(
+            var startDateField = generateDateField(
                 'start', languages[lang].startLabel, languages[lang].datePlaceholder, languages[lang].timePlaceholder
             );
-            generateFormField(
+            var endDateField = generateDateField(
                 'end', languages[lang].endLabel, languages[lang].datePlaceholder, languages[lang].timePlaceholder
             );
+
+            var amountSelectField = generateSelectField('amount', languages[lang].amountLabel)
+
+            that.el.form.appendChild(startDateField);
+            that.el.form.appendChild(endDateField);
+            that.el.form.appendChild(amountSelectField);
 
             function generateTimeFormFieldFallback(name, timeInput) {
 
@@ -255,9 +266,9 @@
                 return fallbackTime;
             }
 
-            function generateFormField(name, title, datePlaceholder, timePlaceholder) {
+            function generateDateField(name, title, datePlaceholder, timePlaceholder) {
                 var field = document.createElement('div');
-                field.setAttribute('class', 'd-form-field');
+                field.setAttribute('class', 'd-form-field d-form-field-half');
 
                 var fieldHeadline = document.createElement('div');
                 fieldHeadline.setAttribute('class', 'd-form-field-h');
@@ -275,7 +286,6 @@
                 fieldTime.setAttribute('class', 'd-form-field-t');
                 fieldTime.setAttribute('data-time-field', name);
                 fieldTime.setAttribute('type', 'time');
-                fieldTime.setAttribute('steps', '5');
                 fieldTime.setAttribute('value', name === 'start' ? '00:00' : '23:55');
                 fieldTime.setAttribute('placeholder', timePlaceholder);
                 fieldTime.disabled = true;
@@ -288,7 +298,25 @@
                     field.appendChild(generateTimeFormFieldFallback(name, fieldTime));
                 }
 
-                that.el.form.appendChild(field);
+                return field;
+            }
+
+            function generateSelectField(name, title) {
+                var field = document.createElement('div');
+                field.setAttribute('class', 'd-form-field');
+
+                var fieldHeadline = document.createElement('div');
+                fieldHeadline.setAttribute('class', 'd-form-field-h');
+                fieldHeadline.innerText = title;
+                field.appendChild(fieldHeadline);
+
+                var fieldAmount = document.createElement('select');
+                fieldAmount.setAttribute('class', 'd-form-field-s');
+                fieldAmount.setAttribute('data-date-field', name);
+
+                field.appendChild(fieldAmount);
+
+                return field;
             }
 
         }
@@ -701,7 +729,7 @@
             var input = that.el.form.querySelector('[data-time-field="' + name + '"]');
 
             if (input.style.display === 'none') {
-                console.log('fallback', input.nextElementSibling);
+                console.log('dateFallback');
                 var fallbackHourSelect = input.nextElementSibling.querySelector('[data-time-field="' + name + '-hour"]');
                 var fallbackMinuteSelect = input.nextElementSibling.querySelector('[data-time-field="' + name + '-minute"]');
 
@@ -838,17 +866,19 @@
             that.el.classList.add('ResourceCal');
             that.el.classList.add(getBrowserVersion().type);
             that.el.innerHTML = template;
-            that.el.calendar = that.el.childNodes[1];
             that.el.titleBox = that.el.childNodes[0];
-            that.el.button = that.el.childNodes[4];
+            that.el.calendar = that.el.childNodes[1];
             that.el.header = that.el.calendar.childNodes[0];
             that.el.monthPicker = that.el.calendar.childNodes[1];
             that.el.yearPicker = that.el.calendar.childNodes[2];
-            that.el.tables = that.el.calendar.childNodes[4];
             that.el.days = that.el.calendar.childNodes[3];
-            that.el.overlay = that.el.childNodes[4];
+            that.el.tables = that.el.calendar.childNodes[4];
             that.el.legend = that.el.childNodes[2];
             that.el.form = that.el.childNodes[3];
+            that.el.button = that.el.childNodes[4];
+            that.el.overlay = that.el.childNodes[5];
+
+            console.log(that.el.button)
 
             setArgs(args);
 
@@ -1383,7 +1413,9 @@
         '</div>' +
         '<div class="d-legend"></div>' +
         '<div class="d-form"></div>' +
-        '<button class="d-confirm"></button>' +
+        '<div class="d-confirm"></div>' +
+        '<button class="d-confirm-button"></button>' +
+        '</div>' +
         '<div class="d-overlay"></div>';
 
     var getBrowserVersion = function () {
