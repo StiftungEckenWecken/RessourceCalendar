@@ -10,6 +10,7 @@
         var that = this;
         var eventName = 'click';
         var selectedDates = [];
+        var selectedAmount = 0;
 
         var currentYear = new Date().getFullYear();
         var currentMonth = new Date().getMonth() + 1;
@@ -225,6 +226,12 @@
                     timeInput.value = hourSelect.value + ':' + minuteSelect.value;
                 }
 
+                function getTime() {
+                    var time = this.value.split(':');
+                    hourSelect.value = time[0];
+                    minuteSelect.value = time[1];
+                }
+
                 var fallbackTime = document.createElement('div');
                 fallbackTime.setAttribute('class', 'd-form-field-t-fallback');
 
@@ -263,6 +270,9 @@
 
                 fallbackTime.appendChild(hourSpan);
                 fallbackTime.appendChild(minuteSpan);
+
+                timeInput.onchange = getTime;
+
                 return fallbackTime;
             }
 
@@ -323,6 +333,7 @@
                 placeholderOption.innerText = '0';
 
                 fieldAmount.appendChild(placeholderOption);
+                fieldAmount.addEventListener('change', amountChange);
 
                 field.appendChild(fieldAmount);
 
@@ -512,7 +523,7 @@
             });
 
             generateLegends();
-        };
+        }
 
         function setDate() {
             if (!that.el.tables.childNodes.length || !that.el.tables.childNodes[0].childNodes.length) return;
@@ -580,11 +591,11 @@
 
             renderSelectedDates();
             if (onNavigation) onNavigation.call(that);
-        };
+        }
 
         function renderSelectedDates() {
             selectedDates.forEach(function (date) {
-                var el = that.el.querySelector('[data-date="' + date.toJSON() + '"]');
+                var el = getDayElement(date);
                 if (el) {
                     el.checked = true;
                 }
@@ -596,12 +607,12 @@
                 var sorted = selectedDates.sort(function (a, b) {
                     return a.getTime() - b.getTime()
                 });
-                var first = that.el.querySelector('[data-date="' + sorted[0].toJSON() + '"]');
+                var first = getDayElement(sorted[0]);
                 if (!first && currentDate >= new Date(sorted[0].getFullYear(), sorted[0].getMonth(), 1) && currentDate <= new Date(sorted[1].getFullYear(), sorted[1].getMonth(), 1)) {
                     that.el.tables.classList.add('before');
                 }
             }
-        };
+        }
 
         function resetCalendar() {
             [].slice.call(that.el.querySelectorAll('.d-table input')).forEach(function (inputEl) {
@@ -615,22 +626,22 @@
             [].slice.call(that.el.yearPicker.querySelectorAll('.current')).forEach(function (yearPickEl) {
                 yearPickEl.classList.remove('current');
             });
-        };
+        }
 
         function nextMonth() {
             currentMonth += months;
             setDate();
-        };
+        }
 
         function prevMonth() {
             currentMonth -= months;
             setDate();
-        };
+        }
 
         function selectDate(date, ignoreOnSelect) {
-            date = new Date(date);
-            date.setHours(0, 0, 0, 0);
-            var el = that.el.querySelector('[data-date="' + date.toJSON() + '"]');
+            var _date = new Date(date);
+
+            var el = getDayElement(_date);
 
             if (range && el && el.checked) {
                 el.classList.add('single');
@@ -641,18 +652,17 @@
             }
 
 
-            selectedDates.push(date);
+            selectedDates.push(_date);
 
             if (onSelect && !ignoreOnSelect) {
-                onSelect.apply(date, [true]);
+                onSelect.apply(_date, [true]);
             }
-        };
+        }
 
         function unselectDate(date, ignoreOnSelect) {
             var _date = new Date(date);
-            _date.setHours(0, 0, 0, 0);
 
-            var el = that.el.querySelector('[data-date="' + _date.toJSON() + '"]');
+            var el = getDayElement(_date);
             if (el) {
                 el.classList.remove('single');
                 if (el.checked) {
@@ -692,7 +702,7 @@
                 }
 
                 if (range && selectedDates.length) {
-                    var first = that.el.querySelector('[data-date="' + selectedDates[0].toJSON() + '"]');
+                    var first = getDayElement(selectedDates[0]);
                     if (date > selectedDates[0]) {
                         if (!first) {
                             that.el.tables.classList.add('before');
@@ -719,31 +729,39 @@
             }
 
             if (maxSelections === 2) {
-                console.log(selectedDates)
                 setDateField('start', selectedDates[0] ? new Date(selectedDates[0]) : languages[lang].datePlaceholder);
                 setDateField('end', selectedDates[1] ? new Date(selectedDates[1]) : languages[lang].datePlaceholder);
 
                 setDisabledOfTimeField('start', !!(selectedDates[0] && selectedDates[1]));
                 setDisabledOfTimeField('end', !!(selectedDates[0] && selectedDates[1]));
+                setDisabledOfSelectField(!!(selectedDates[0] && selectedDates[1]));
+                that.el.button.disabled = !!((selectedDates[0] && selectedDates[1]) && selectedAmount);
 
+                setTime('start');
                 if (!!(selectedDates[0] && selectedDates[1])) {
-                    setTimeField('end');
+                    setTime('end');
                 }
             }
 
             if (onSelect) {
                 onSelect.call(date, input.checked);
             }
-        };
+
+            console.log(selectedDates)
+        }
 
         function timeChange(e) {
-            var input = e.currentTarget;
+            var input = this;
             var name = input.getAttribute('data-time-field');
-            var time = input.value.split(':');
-            var date = selectedDates[name === 'start' ? 0 : 1];
 
-            date.setHours(time[0]);
-            date.setMinutes(time[1]);
+            var index = name === 'start' ? 0 : 1;
+            selectedDates[index] = setTimeOfDateFromTimeField(selectedDates[index], input.value);
+
+        }
+
+        function amountChange(e) {
+            console.log(this);
+            selectedAmount = e.currentTarget.value;
         }
 
         function setDateField(name, date) {
@@ -751,11 +769,15 @@
             field.innerText = date instanceof Date ? date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear() : date;
         }
 
-        function setTimeField(name) {
-            var input = that.el.form.querySelector('[data-time-field="' + name + '"]');
+        function setTime(name) {
+            var input = getTimeField(name);
             var index = name === 'start' ? 0 : 1;
 
             selectedDates[index] = setTimeOfDateFromTimeField(selectedDates[index], input.value);
+        }
+
+        function getTimeField(name) {
+            return that.el.form.querySelector('[data-time-field="' + name + '"]');
         }
 
         function setTimeOfDateFromTimeField(date, time) {
@@ -767,7 +789,11 @@
 
         function getDayString(date) {
             return date.getDate() + date.getMonth() + date.getFullYear();
-            ;
+        }
+
+        function getDayElement(date) {
+            date.setHours(0, 0, 0, 0);
+            return that.el.querySelector('[data-date="' + date.toJSON() + '"]');
         }
 
         function setDisabledOfTimeField(name, x) {
@@ -798,7 +824,7 @@
                 range = false;
                 that.el.tables.classList.remove('range');
             }
-        };
+        }
 
         function show(properties) {
             if (!that.inline && that.container === document.body) {
@@ -818,7 +844,7 @@
                 currentYear = startDate.getFullYear();
             }
             setDate();
-        };
+        }
 
         function hide() {
             document.body.classList.remove('d-noscroll');
@@ -833,7 +859,7 @@
             }
             that.el.addEventListener(whichAnimationEvent(), handler);
             that.el.classList.add('d-hide');
-        };
+        }
 
         function bindEvents() {
             that.el.header.childNodes[0].addEventListener(eventName, prevMonth);
@@ -877,7 +903,7 @@
                     setDate();
                     that.el.yearPicker.classList.remove('d-show');
                 });
-            })
+            });
 
             var startX = 0;
             var distance = 0;
@@ -899,7 +925,7 @@
                 }
                 distance = 0;
             });
-        };
+        }
 
         function setArgs(x) {
             for (var key in x) {
@@ -907,8 +933,7 @@
                     that[key] = x[key];
                 }
             }
-            ;
-        };
+        }
 
         function init() {
             that.el = document.createElement('div');
@@ -1401,7 +1426,7 @@
         setDate();
 
         return Object.freeze(that);
-    };
+    }
 
     function whichAnimationEvent() {
         var t;
@@ -1469,7 +1494,7 @@
         var browser = {
             type: null,
             version: null
-        }
+        };
 
         var ua = navigator.userAgent, tem, ios,
             M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
@@ -1496,7 +1521,7 @@
         browser.version = parseInt(M[1]);
 
         return browser;
-    }
+    };
 
     /* Spread it to the world! */
     if (typeof define === 'function' && define.amd) define('ResourceCal', ResourceCal);
