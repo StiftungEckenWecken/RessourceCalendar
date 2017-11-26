@@ -732,10 +732,11 @@
                 setDateField('start', selectedDates[0] ? new Date(selectedDates[0]) : languages[lang].datePlaceholder);
                 setDateField('end', selectedDates[1] ? new Date(selectedDates[1]) : languages[lang].datePlaceholder);
 
-                setDisabledOfTimeField('start', !!(selectedDates[0] && selectedDates[1]));
-                setDisabledOfTimeField('end', !!(selectedDates[0] && selectedDates[1]));
-                setDisabledOfSelectField(!!(selectedDates[0] && selectedDates[1]));
-                that.el.button.disabled = !!((selectedDates[0] && selectedDates[1]) && selectedAmount);
+                setDisabledOfTimeField('start', !(selectedDates[0] && selectedDates[1]));
+                setDisabledOfTimeField('end', !(selectedDates[0] && selectedDates[1]));
+                setDisabledOfSelectField(!(selectedDates[0] && selectedDates[1]));
+                that.el.button.disabled = !((selectedDates[0] && selectedDates[1]) && selectedAmount);
+                console.log(that.el.button.disabled)
 
                 setTime('start');
                 if (!!(selectedDates[0] && selectedDates[1])) {
@@ -804,16 +805,16 @@
                 var fallbackHourSelect = input.nextElementSibling.querySelector('[data-time-field="' + name + '-hour"]');
                 var fallbackMinuteSelect = input.nextElementSibling.querySelector('[data-time-field="' + name + '-minute"]');
 
-                fallbackHourSelect.disabled = !x;
-                fallbackMinuteSelect.disabled = !x;
+                fallbackHourSelect.disabled = x;
+                fallbackMinuteSelect.disabled = x;
             }
 
-            input.disabled = !x;
+            input.disabled = x;
         }
 
         function setDisabledOfSelectField(x) {
             var input = that.el.form.querySelector('[data-field="amount"]');
-            input.disabled = !x;
+            input.disabled = x;
         }
 
         function setRange(val) {

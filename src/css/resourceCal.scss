@@ -95,6 +95,10 @@ $spin: -15;
       z-index: 2;
       margin: 2% 4%;
       padding: 1%;
+
+      &[disabled] {
+        background-color: #333333;
+      }
     }
   }
 
