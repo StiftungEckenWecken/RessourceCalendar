@@ -20,6 +20,7 @@
                 monthNames: ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'],
                 dayNames: ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'],
                 weekStart: 1,
+                deleteLabel: 'delete',
                 startLabel: 'Start',
                 endLabel: 'End',
                 amountLabel: 'Amount',
@@ -30,6 +31,7 @@
                 monthNames: ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'],
                 dayNames: ['sö', 'må', 'ti', 'on', 'to', 'fr', 'lö'],
                 weekStart: 1,
+                deleteLabel: 'delete',
                 startLabel: 'Start',
                 endLabel: 'End',
                 amountLabel: 'Amount',
@@ -40,6 +42,7 @@
                 monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
                 dayNames: ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
                 weekStart: 1,
+                deleteLabel: 'delete',
                 startLabel: 'Start',
                 endLabel: 'End',
                 amountLabel: 'Amount',
@@ -50,6 +53,7 @@
                 monthNames: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
                 dayNames: ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'],
                 weekStart: 0,
+                deleteLabel: 'delete',
                 startLabel: 'Start',
                 endLabel: 'End',
                 amountLabel: 'Amount',
@@ -60,6 +64,7 @@
                 monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
                 dayNames: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
                 weekStart: 1,
+                deleteLabel: 'löschen',
                 startLabel: 'Beginn',
                 endLabel: 'Ende',
                 amountLabel: 'Verfügbare Anzahl',
@@ -100,7 +105,7 @@
         var locked = false;
 
         function generateDaynames() {
-            that.el.days.innerHTML = '';
+            that.el.calendar.days.innerHTML = '';
             var ws = (weekStart !== null) ? weekStart : languages[lang].weekStart;
             if (daynames) {
                 for (var x = 0; x < months && x < 3; x++) {
@@ -117,19 +122,19 @@
                         weekEl.appendChild(dayEl);
                     }
 
-                    that.el.days.appendChild(weekEl);
+                    that.el.calendar.days.appendChild(weekEl);
                 }
             }
         }
 
         function generateYears() {
-            [].slice.call(that.el.yearPicker.childNodes).forEach(function (node, index) {
+            [].slice.call(that.el.calendar.yearPicker.childNodes).forEach(function (node, index) {
                 node.innerHTML = "'" + (currentYear + parseInt(node.getAttribute('data-year'))).toString().substring(2, 4);
             })
         }
 
         function generateInputs() {
-            that.el.tables.innerHTML = '';
+            that.el.calendar.tables.innerHTML = '';
             for (var x = 0; x < months; x++) {
                 var container = document.createElement('div');
                 container.setAttribute('class', 'd-table');
@@ -160,11 +165,11 @@
                     input.addEventListener('change', inputChange);
                 }
 
-                that.el.tables.appendChild(container);
+                that.el.calendar.tables.appendChild(container);
             }
 
-            that.el.tables.addEventListener('mouseover', highlightLegend);
-            that.el.tables.addEventListener('mouseout', highlightLegend);
+            that.el.calendar.tables.addEventListener('mouseover', highlightLegend);
+            that.el.calendar.tables.addEventListener('mouseout', highlightLegend);
 
             function highlightLegend(e) {
                 if (e.target.nodeName !== 'LABEL') return;
@@ -343,8 +348,8 @@
         }
 
         function generateLegends() {
-            var start = new Date(that.el.tables.childNodes[0].childNodes[0].getAttribute('data-date'));
-            var end = new Date(that.el.tables.childNodes[months - 1].childNodes[82].getAttribute('data-date'));
+            var start = new Date(that.el.calendar.tables.childNodes[0].childNodes[0].getAttribute('data-date'));
+            var end = new Date(that.el.calendar.tables.childNodes[months - 1].childNodes[82].getAttribute('data-date'));
             var _highlights = highlight.filter(function (x) {
                 for (var m = 0; m < x.dates.length; m++) {
                     if (x.dates[m].start < end && x.dates[m].end > start) {
@@ -387,7 +392,7 @@
             });
 
             function hoverLegend(e) {
-                [].slice.call(that.el.tables.querySelectorAll('[data-legend-id*="' + this.getAttribute('data-legend-id') + '"]')).forEach(function (element) {
+                [].slice.call(that.el.calendar.tables.querySelectorAll('[data-legend-id*="' + this.getAttribute('data-legend-id') + '"]')).forEach(function (element) {
                     if (e.type == 'mouseover') element.classList.add('legend-hover');
                     else element.classList.remove('legend-hover');
                 });
@@ -526,7 +531,7 @@
         }
 
         function setDate() {
-            if (!that.el.tables.childNodes.length || !that.el.tables.childNodes[0].childNodes.length) return;
+            if (!that.el.calendar.tables.childNodes.length || !that.el.calendar.tables.childNodes[0].childNodes.length) return;
 
             resetCalendar();
 
@@ -543,16 +548,16 @@
             if (maxDate && new Date(currentYear, currentMonth - 1 + months - 1, 1) >= new Date(maxDate).setDate(1)) {
                 currentYear = maxDate.getFullYear();
                 currentMonth = maxDate.getMonth() + 1 - months + 1;
-                that.el.header.childNodes[2].setAttribute('style', 'visibility:hidden');
+                that.el.calendar.header.childNodes[2].setAttribute('style', 'visibility:hidden');
             } else {
-                that.el.header.childNodes[2].removeAttribute('style');
+                that.el.calendar.header.childNodes[2].removeAttribute('style');
             }
             if (minDate && new Date(currentYear, currentMonth - 1, 1) <= new Date(minDate).setDate(1)) {
                 currentYear = minDate.getFullYear();
                 currentMonth = minDate.getMonth() + 1;
-                that.el.header.childNodes[0].setAttribute('style', 'visibility:hidden');
+                that.el.calendar.header.childNodes[0].setAttribute('style', 'visibility:hidden');
             } else {
-                that.el.header.childNodes[0].removeAttribute('style');
+                that.el.calendar.header.childNodes[0].removeAttribute('style');
             }
 
             for (var c = 0; c < months; c++) {
@@ -563,7 +568,7 @@
                     index += 12;
                 }
 
-                that.el.monthPicker.childNodes[index].classList.add('current');
+                that.el.calendar.monthPicker.childNodes[index].classList.add('current');
             }
 
             generateDates(currentYear, currentMonth);
@@ -581,12 +586,12 @@
                 endmonth += languages[lang].monthNames[monthint];
             }
             var yearname = (currentMonth - 1 + months - 1 > 11) ? currentYear.toString().substring(2, 4) + '/' + (currentYear + 1).toString().substring(2, 4) : currentYear.toString().substring(2, 4);
-            that.el.header.childNodes[1].childNodes[0].innerHTML = startmonth + endmonth;
-            that.el.header.childNodes[1].childNodes[1].innerHTML = yearname;
+            that.el.calendar.header.childNodes[1].childNodes[0].innerHTML = startmonth + endmonth;
+            that.el.calendar.header.childNodes[1].childNodes[1].innerHTML = yearname;
 
-            that.el.yearPicker.querySelector('[data-year="0"]').classList.add('current');
+            that.el.calendar.yearPicker.querySelector('[data-year="0"]').classList.add('current');
             if (currentMonth - 1 + months - 1 > 11) {
-                that.el.yearPicker.querySelector('[data-year="1"]').classList.add('current');
+                that.el.calendar.yearPicker.querySelector('[data-year="1"]').classList.add('current');
             }
 
             renderSelectedDates();
@@ -601,7 +606,7 @@
                 }
             });
 
-            that.el.tables.classList.remove('before');
+            that.el.calendar.tables.classList.remove('before');
             if (range && selectedDates.length > 1) {
                 var currentDate = new Date(currentYear, currentMonth - 1, 1);
                 var sorted = selectedDates.sort(function (a, b) {
@@ -609,7 +614,7 @@
                 });
                 var first = getDayElement(sorted[0]);
                 if (!first && currentDate >= new Date(sorted[0].getFullYear(), sorted[0].getMonth(), 1) && currentDate <= new Date(sorted[1].getFullYear(), sorted[1].getMonth(), 1)) {
-                    that.el.tables.classList.add('before');
+                    that.el.calendar.tables.classList.add('before');
                 }
             }
         }
@@ -619,11 +624,11 @@
                 inputEl.checked = false;
             });
 
-            [].slice.call(that.el.monthPicker.querySelectorAll('.current')).forEach(function (monthPickEl) {
+            [].slice.call(that.el.calendar.monthPicker.querySelectorAll('.current')).forEach(function (monthPickEl) {
                 monthPickEl.classList.remove('current');
             });
 
-            [].slice.call(that.el.yearPicker.querySelectorAll('.current')).forEach(function (yearPickEl) {
+            [].slice.call(that.el.calendar.yearPicker.querySelectorAll('.current')).forEach(function (yearPickEl) {
                 yearPickEl.classList.remove('current');
             });
         }
@@ -693,7 +698,7 @@
                 return;
             }
             if (range) {
-                that.el.tables.classList.remove('before');
+                that.el.calendar.tables.classList.remove('before');
             }
             if (input.checked) {
 
@@ -705,7 +710,7 @@
                     var first = getDayElement(selectedDates[0]);
                     if (date > selectedDates[0]) {
                         if (!first) {
-                            that.el.tables.classList.add('before');
+                            that.el.calendar.tables.classList.add('before');
                         }
                     } else {
                         unselectAll()
@@ -736,7 +741,6 @@
                 setDisabledOfTimeField('end', !(selectedDates[0] && selectedDates[1]));
                 setDisabledOfSelectField(!(selectedDates[0] && selectedDates[1]));
                 that.el.button.disabled = !((selectedDates[0] && selectedDates[1]) && selectedAmount);
-                console.log(that.el.button.disabled)
 
                 setTime('start');
                 if (!!(selectedDates[0] && selectedDates[1])) {
@@ -820,10 +824,10 @@
         function setRange(val) {
             if (val) {
                 range = true;
-                that.el.tables.classList.add('range');
+                that.el.calendar.tables.classList.add('range');
             } else {
                 range = false;
-                that.el.tables.classList.remove('range');
+                that.el.calendar.tables.classList.remove('range');
             }
         }
 
@@ -862,25 +866,39 @@
             that.el.classList.add('d-hide');
         }
 
+        function reset() {
+            resetCalendar();
+            selectedDates = [];
+            selectedAmount = 0;
+
+
+            setDisabledOfTimeField('start', true);
+            setDisabledOfTimeField('end', true);
+            setDisabledOfSelectField(true);
+            that.el.button.disabled = true;
+        }
+
         function bindEvents() {
-            that.el.header.childNodes[0].addEventListener(eventName, prevMonth);
-            that.el.header.childNodes[2].addEventListener(eventName, nextMonth);
-            that.el.header.childNodes[1].childNodes[0].addEventListener(eventName, function () {
-                if (that.el.monthPicker.classList.contains('d-show')) {
-                    that.el.monthPicker.classList.remove('d-show');
+            that.el.header.closeButton.addEventListener(eventName, hide);
+            that.el.header.deleteButton.addEventListener(eventName, reset);
+            that.el.calendar.header.childNodes[0].addEventListener(eventName, prevMonth);
+            that.el.calendar.header.childNodes[2].addEventListener(eventName, nextMonth);
+            that.el.calendar.header.childNodes[1].childNodes[0].addEventListener(eventName, function () {
+                if (that.el.calendar.monthPicker.classList.contains('d-show')) {
+                    that.el.calendar.monthPicker.classList.remove('d-show');
                 } else {
-                    that.el.monthPicker.classList.add('d-show');
+                    that.el.calendar.monthPicker.classList.add('d-show');
                 }
-                that.el.yearPicker.classList.remove('d-show');
+                that.el.calendar.yearPicker.classList.remove('d-show');
             });
-            that.el.header.childNodes[1].childNodes[1].addEventListener(eventName, function () {
+            that.el.calendar.header.childNodes[1].childNodes[1].addEventListener(eventName, function () {
                 generateYears();
-                if (that.el.yearPicker.classList.contains('d-show')) {
-                    that.el.yearPicker.classList.remove('d-show');
+                if (that.el.calendar.yearPicker.classList.contains('d-show')) {
+                    that.el.calendar.yearPicker.classList.remove('d-show');
                 } else {
-                    that.el.yearPicker.classList.add('d-show');
+                    that.el.calendar.yearPicker.classList.add('d-show');
                 }
-                that.el.monthPicker.classList.remove('d-show');
+                that.el.calendar.monthPicker.classList.remove('d-show');
             });
             that.el.button.addEventListener(eventName, hide);
 
@@ -890,19 +908,19 @@
                 }
             });
 
-            [].slice.call(that.el.monthPicker.childNodes).forEach(function (monthPicker) {
+            [].slice.call(that.el.calendar.monthPicker.childNodes).forEach(function (monthPicker) {
                 monthPicker.addEventListener(eventName, function () {
                     currentMonth = parseInt(this.getAttribute('data-month'));
                     setDate();
-                    that.el.monthPicker.classList.remove('d-show');
+                    that.el.calendar.monthPicker.classList.remove('d-show');
                 });
             });
 
-            [].slice.call(that.el.yearPicker.childNodes).forEach(function (yearPicker) {
+            [].slice.call(that.el.calendar.yearPicker.childNodes).forEach(function (yearPicker) {
                 yearPicker.addEventListener(eventName, function () {
                     currentYear += parseInt(this.getAttribute('data-year'));
                     setDate();
-                    that.el.yearPicker.classList.remove('d-show');
+                    that.el.calendar.yearPicker.classList.remove('d-show');
                 });
             });
 
@@ -942,22 +960,27 @@
             that.el.classList.add(getBrowserVersion().type);
             that.el.innerHTML = template;
             that.el.titleBox = that.el.childNodes[0];
-            that.el.calendar = that.el.childNodes[1];
-            that.el.header = that.el.calendar.childNodes[0];
-            that.el.monthPicker = that.el.calendar.childNodes[1];
-            that.el.yearPicker = that.el.calendar.childNodes[2];
-            that.el.days = that.el.calendar.childNodes[3];
-            that.el.tables = that.el.calendar.childNodes[4];
-            that.el.legend = that.el.childNodes[2];
-            that.el.form = that.el.childNodes[3];
-            that.el.button = that.el.childNodes[4].childNodes[0];
-            that.el.overlay = that.el.childNodes[5];
+            that.el.header = that.el.childNodes[1];
+            that.el.header.closeButton = that.el.header.childNodes[0];
+            that.el.header.deleteButton = that.el.header.childNodes[1];
+            that.el.calendar = that.el.childNodes[2];
+            that.el.calendar.header = that.el.calendar.childNodes[0];
+            that.el.calendar.monthPicker = that.el.calendar.childNodes[1];
+            that.el.calendar.yearPicker = that.el.calendar.childNodes[2];
+            that.el.calendar.days = that.el.calendar.childNodes[3];
+            that.el.calendar.tables = that.el.calendar.childNodes[4];
+            that.el.legend = that.el.childNodes[3];
+            that.el.form = that.el.childNodes[4];
+            that.el.button = that.el.childNodes[5].childNodes[0];
+            that.el.overlay = that.el.childNodes[6];
 
             setArgs(args);
 
+            that.el.header.deleteButton.innerText = languages[lang].deleteLabel;
             generateInputs();
             generateDaynames();
             generateFormFields();
+
             bindEvents();
 
             if (inline) {
@@ -1253,10 +1276,10 @@
                 set: function (x) {
                     if (x) {
                         locked = true;
-                        that.el.tables.classList.add('locked');
+                        that.el.calendar.tables.classList.add('locked');
                     } else {
                         locked = false;
-                        that.el.tables.classList.remove('locked');
+                        that.el.calendar.tables.classList.remove('locked');
                     }
                 }
             },
@@ -1448,8 +1471,12 @@
     }
 
     var template = '<div class="d-title"></div>' +
-        '<div class="d-calendar">' +
         '<div class="d-header">' +
+        '<button class="d-close-button">x</button>' +
+        '<button class="d-delete-button">delete</button>' +
+        '</div>' +
+        '<div class="d-calendar">' +
+        '<div class="d-calendar-header">' +
         '<i id="d-previous"></i>' +
         '<p><span class="d-month"></span><span class="d-year"></span></p>' +
         '<i id="d-next"></i>' +
@@ -1487,7 +1514,7 @@
         '<div class="d-legend"></div>' +
         '<div class="d-form"></div>' +
         '<div class="d-confirm">' +
-        '<button class="d-confirm-button"></button>' +
+        '<button class="d-confirm-button" disabled></button>' +
         '</div>' +
         '<div class="d-overlay"></div>';
 

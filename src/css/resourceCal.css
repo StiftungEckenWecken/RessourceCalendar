@@ -75,6 +75,59 @@
     font-size: 30px;
     margin: 25px 0;
     z-index: 2; }
+
+.ResourceCal .d-header {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 2;
+    height: 44px;
+    width: 100%;
+    max-width: 600px;
+    background-color: #162b3c;
+}
+
+@media (max-width: 375px) {
+    .ResourceCal .d-header {
+        height: 40px;
+    }
+}
+
+.ResourceCal .d-header .d-delete-button, .ResourceCal .d-header .d-close-button {
+    padding: 0;
+    background-color: transparent;
+    color: white;
+}
+
+@media (max-width: 375px) {
+    .ResourceCal .d-header .d-delete-button, .ResourceCal .d-header .d-close-button {
+        margin-top: 0;
+        width: auto;
+    }
+}
+
+.ResourceCal .d-header .d-close-button {
+    padding: 0 1.2rem 4px;
+    font-size: 1.7rem;
+}
+
+@media (max-width: 375px) {
+    .ResourceCal .d-header .d-close-button {
+        padding: 4px 1rem;
+        font-size: 1.4rem;
+    }
+}
+
+.ResourceCal .d-header .d-delete-button {
+    padding: .5rem 1rem;
+    float: right;
+}
+
+@media (max-width: 375px) {
+    .ResourceCal .d-header .d-delete-button {
+        font-size: 1rem;
+    }
+}
   .ResourceCal .d-confirm {
     position: relative;
       display: -webkit-box;
@@ -97,6 +150,11 @@
     z-index: 2;
     margin: 2% 4%;
     padding: 1%;
+}
+
+.ResourceCal .d-confirm .d-confirm-button[disabled] {
+    cursor: not-allowed;
+    background-color: #333333;
 }
   .ResourceCal .d-title:empty, .ResourceCal .d-confirm:empty {
     display: none; }
@@ -297,232 +355,344 @@
         -ms-flex-positive: 1;
             flex-grow: 1;
     z-index: 2; }
-  .ResourceCal .d-header {
+
+.ResourceCal .d-calendar .d-calendar-header {
     position: relative;
-    background-color: #1B363F;
+    background-color: #316187;
     color: white;
-    font-size: 1.5em; }
-    .ResourceCal .d-header p {
-      margin: .5em 0;
-      text-align: center; }
-    .ResourceCal .d-header i {
-      position: absolute;
-      top: 50%;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      text-align: center;
-      border-radius: 100%;
-      -webkit-transition: background-color .2s ease;
-      transition: background-color .2s ease;
-      -webkit-transform: translateY(-50%);
-              transform: translateY(-50%); }
-      .ResourceCal .d-header i:before, .ResourceCal .d-header i:after {
-        content: '';
-        width: 0;
-        height: 0;
-        position: absolute; }
-      .ResourceCal .d-header i:before {
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent; }
-      .ResourceCal .d-header i:after {
-        border-top: 7px solid transparent;
-        border-bottom: 7px solid transparent;
-        -webkit-transition: border-color .2s ease;
-        transition: border-color .2s ease; }
-      .ResourceCal .d-header i#d-previous {
-        left: 20px; }
-        .ResourceCal .d-header i#d-previous:before {
-          border-right: 10px solid #FFF;
-          top: 5px;
-          left: 7px; }
-        .ResourceCal .d-header i#d-previous:after {
-          border-right: 7px solid #1B363F;
-          top: 8px;
-          left: 10px; }
-      .ResourceCal .d-header i#d-next {
-        right: 20px; }
-        .ResourceCal .d-header i#d-next:before {
-          border-left: 10px solid #FFF;
-          top: 5px;
-          left: 12px; }
-        .ResourceCal .d-header i#d-next:after {
-          border-left: 7px solid #1B363F;
-          top: 8px;
-          left: 12px; }
-      .ResourceCal .d-header i:hover {
-        background-color: #5E7178; }
-        .ResourceCal .d-header i:hover:after {
-          border-left-color: #5E7178 !important;
-          border-right-color: #5E7178 !important; }
-  .ResourceCal .d-month {
+    font-size: 1.5em;
+}
+
+.ResourceCal .d-calendar .d-calendar-header p {
+    margin: .5em 0;
+    text-align: center;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i {
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
-    white-space: nowrap; }
-  .ResourceCal .d-year {
+    text-align: center;
+    border-radius: 100%;
+    -webkit-transition: background-color .2s ease;
+    transition: background-color .2s ease;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.ResourceCal .d-calendar .d-calendar-header i:before, .ResourceCal .d-calendar .d-calendar-header i:after {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i:before {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i:after {
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    -webkit-transition: border-color .2s ease;
+    transition: border-color .2s ease;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i#d-previous {
+    left: 20px;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i#d-previous:before {
+    border-right: 10px solid white;
+    top: 5px;
+    left: 7px;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i#d-previous:after {
+    border-right: 7px solid #316187;
+    top: 8px;
+    left: 10px;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i#d-next {
+    right: 20px;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i#d-next:before {
+    border-left: 10px solid white;
+    top: 5px;
+    left: 12px;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i#d-next:after {
+    border-left: 7px solid #316187;
+    top: 8px;
+    left: 12px;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i:hover {
+    background-color: #3f7cac;
+}
+
+.ResourceCal .d-calendar .d-calendar-header i:hover:after {
+    border-left-color: #3f7cac !important;
+    border-right-color: #3f7cac !important;
+}
+
+.ResourceCal .d-calendar .d-month {
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.ResourceCal .d-calendar .d-year {
     margin-left: 10px;
-    cursor: pointer; }
-    .ResourceCal .d-year:before {
-      content: ""; }
-  .ResourceCal .d-month-picker {
+    cursor: pointer;
+}
+
+.ResourceCal .d-calendar .d-year:before {
+    content: "";
+}
+
+.ResourceCal .d-calendar .d-month-picker {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     background-color: rgba(27, 54, 63, 0.9);
     height: 0;
     overflow: hidden;
     pointer-events: none;
     -webkit-transition: height .2s ease;
-    transition: height .2s ease; }
-    .ResourceCal .d-month-picker.d-show {
-      height: 44px;
-      pointer-events: auto; }
-    .ResourceCal .d-month-picker > div {
-      width: calc(100% / 12);
-      text-align: center;
-      line-height: 44px;
-      color: white;
-      cursor: pointer; }
-      .ResourceCal .d-month-picker > div:hover, .ResourceCal .d-month-picker > div:focus {
-        background-color: #e32d2d;
-        color: contrast(#e32d2d, black, white); }
-      .ResourceCal .d-month-picker > div.current {
-        background-color: #E95A5A;
-        color: white; }
-  .ResourceCal .d-year-picker {
+    transition: height .2s ease;
+}
+
+.ResourceCal .d-calendar .d-month-picker.d-show {
+    height: 44px;
+    pointer-events: auto;
+}
+
+.ResourceCal .d-calendar .d-month-picker > div {
+    width: calc(100% / 12);
+    text-align: center;
+    line-height: 44px;
+    color: white;
+    cursor: pointer;
+}
+
+.ResourceCal .d-calendar .d-month-picker > div:hover, .ResourceCal .d-calendar .d-month-picker > div:focus {
+    background-color: #316187;
+    color: white;
+}
+
+.ResourceCal .d-calendar .d-month-picker > div.current {
+    background-color: #3f7cac;
+    color: white;
+}
+
+.ResourceCal .d-calendar .d-year-picker {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     background-color: rgba(27, 54, 63, 0.9);
     height: 0;
     overflow: hidden;
     pointer-events: none;
     -webkit-transition: height .2s ease;
-    transition: height .2s ease; }
-    .ResourceCal .d-year-picker.d-show {
-      height: 44px;
-      pointer-events: auto; }
-    .ResourceCal .d-year-picker > div {
-      width: calc(100% / 11);
-      text-align: center;
-      line-height: 44px;
-      cursor: pointer; }
-      .ResourceCal .d-year-picker > div:hover, .ResourceCal .d-year-picker > div:focus {
-        background-color: #e32d2d;
-        color: contrast(#e32d2d, black, white); }
-      .ResourceCal .d-year-picker > div.current {
-        background-color: #E95A5A, 25;
-        color: white; }
-  .ResourceCal .d-weekdays {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex; }
-  .ResourceCal .d-week {
-    background-color: #E95A5A;
-    color: contrast(#E95A5A, black, white);
+    transition: height .2s ease;
+}
+
+.ResourceCal .d-calendar .d-year-picker.d-show {
+    height: 44px;
+    pointer-events: auto;
+}
+
+.ResourceCal .d-calendar .d-year-picker > div {
+    width: calc(100% / 11);
+    text-align: center;
+    line-height: 44px;
+    cursor: pointer;
+}
+
+.ResourceCal .d-calendar .d-year-picker > div:hover, .ResourceCal .d-calendar .d-year-picker > div:focus {
+    background-color: #316187;
+    color: white;
+}
+
+.ResourceCal .d-calendar .d-year-picker > div.current {
+    background-color: #3f7cac, 25;
+    color: white;
+}
+
+.ResourceCal .d-calendar .d-weekdays {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    width: 100%; }
-    .ResourceCal .d-week + .d-week {
-      border-left: 1px solid rgba(255, 255, 255, 0.05); }
-    .ResourceCal .d-week > div {
-      -ms-flex-preferred-size: calc(100% / 7);
-          flex-basis: calc(100% / 7);
-      text-align: center; }
-      .ResourceCal .d-week > div p {
-          margin: .3em 0;
-      }
-        @media (max-height: 540px) {
-          .ResourceCal .d-week > div p {
-            margin: .1em 0;
-            font-size: .8rem; } }
-  .ResourceCal .d-table {
+}
+
+.ResourceCal .d-calendar .d-week {
+    background-color: white;
+    color: black;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.ResourceCal .d-calendar .d-week + .d-week {
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ResourceCal .d-calendar .d-week > div {
+    -ms-flex-preferred-size: calc(100% / 7);
+    flex-basis: calc(100% / 7);
+    text-align: center;
+}
+
+.ResourceCal .d-calendar .d-week > div p {
+    margin: .3em 0;
+}
+
+@media (max-height: 540px) {
+    .ResourceCal .d-calendar .d-week > div p {
+        margin: .1em 0;
+        font-size: .8rem;
+    }
+}
+
+.ResourceCal .d-calendar .d-table {
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
     -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1; }
-    .ResourceCal .d-table:first-child:nth-last-child(n + 3), .ResourceCal .d-table:first-child:nth-last-child(n + 3) ~ div {
-      -webkit-box-flex: 0;
-          -ms-flex: 0;
-              flex: 0;
-      -ms-flex-preferred-size: calc(100% / 3 - 1px);
-          flex-basis: calc(100% / 3 - 1px);
-      /*-1px due to browser render*/
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
-    .ResourceCal .d-table label:nth-of-type(7n) .d-date-legends {
-      padding-right: 0; }
-    .ResourceCal .d-table label:nth-last-of-type(-n + 7) .d-date-legends {
-      padding-bottom: 0; }
-    .ResourceCal .d-table input {
-      display: none; }
-      .ResourceCal .d-table input + label {
-        flex-basis: calc(100% / 7);
-        -ms-flex-preferred-size: 14.28%;
-        /*Keep -> IE render fail*/
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: center;
-            -ms-flex-align: center;
-                align-items: center;
-        -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
-        cursor: pointer;
-        -webkit-transition: background-color .2s ease, background .2s ease, color .2s ease;
-        transition: background-color .2s ease, background .2s ease, color .2s ease;
-        position: relative;
-        -webkit-tap-highlight-color: transparent;
-        -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-        margin-left: 0;
-        margin-right: 0; }
-        .ResourceCal .d-table input + label text {
-          z-index: 9;
-          pointer-events: none;
-          position: relative; }
-        .ResourceCal .d-table input + label[style*="linear-gradient"] text {
-          text-shadow: 0 0 20px black; }
-        .ResourceCal .d-table input + label.today text:before {
-          content: '';
-          width: 100%;
-          height: 2px;
-          background-color: #E95A5A;
-          position: absolute;
-          bottom: -5px;
-          left: 0; }
-        .ResourceCal .d-table input + label:before {
-          content: '';
-          position: absolute;
-          top: 12.5%;
-          left: 12.5%;
-          width: 75%;
-          height: 75%;
-          border-radius: 5px;
-          background-color: #7DD076;
-          -webkit-transition: -webkit-transform 0.1s ease-out;
-          transition: -webkit-transform 0.1s ease-out;
-          transition: transform 0.1s ease-out;
-          transition: transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
-          -webkit-transform: scaleX(0);
-                  transform: scaleX(0);
-          -webkit-transform-origin: left;
-                  transform-origin: left; }
-        .ResourceCal .d-table input + label.legend-hover {
-          -webkit-animation: legendhover 1s infinite;
-                  animation: legendhover 1s infinite;
-          z-index: 10; }
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.ResourceCal .d-calendar .d-table:first-child:nth-last-child(n + 3), .ResourceCal .d-calendar .d-table:first-child:nth-last-child(n + 3) ~ div {
+    -webkit-box-flex: 0;
+    -ms-flex: 0;
+    flex: 0;
+    -ms-flex-preferred-size: calc(100% / 3 - 1px);
+    flex-basis: calc(100% / 3 - 1px);
+    /*-1px due to browser render*/
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ResourceCal .d-calendar .d-table label:nth-of-type(7n) .d-date-legends {
+    padding-right: 0;
+}
+
+.ResourceCal .d-calendar .d-table label:nth-last-of-type(-n + 7) .d-date-legends {
+    padding-bottom: 0;
+}
+
+.ResourceCal .d-calendar .d-table input {
+    display: none;
+}
+
+.ResourceCal .d-calendar .d-table input + label {
+    flex-basis: calc(100% / 7);
+    -ms-flex-preferred-size: 14.28%;
+    /*Keep -> IE render fail*/
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-transition: background-color .2s ease, background .2s ease, color .2s ease;
+    transition: background-color .2s ease, background .2s ease, color .2s ease;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.ResourceCal .d-calendar .d-table input + label text {
+    z-index: 9;
+    pointer-events: none;
+    position: relative;
+    font-size: 1.2rem;
+}
+
+.ResourceCal .d-calendar .d-table input + label[style*="linear-gradient"] text {
+    text-shadow: 0 0 20px black;
+}
+
+.ResourceCal .d-calendar .d-table input + label.today text:before {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: #3f7cac;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.ResourceCal .d-calendar .d-table input + label:before {
+    content: '';
+    position: absolute;
+    height: 2.8rem;
+    width: 2.8rem;
+    border-radius: 50%;
+    background-color: #7DD076;
+    -webkit-transition: -webkit-transform 0.1s ease-out;
+    transition: -webkit-transform 0.1s ease-out;
+    transition: transform 0.1s ease-out;
+    transition: transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: left;
+    transform-origin: left;
+}
+
+@media screen and (max-width: 425px) {
+    .ResourceCal .d-calendar .d-table input + label:before {
+        height: 2.2rem;
+        width: 2.2rem;
+    }
+}
+
+.ResourceCal .d-calendar .d-table input + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2.8rem;
+    right: 0;
+    background-color: #7DD076;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+}
+
+@media screen and (max-width: 425px) {
+    .ResourceCal .d-calendar .d-table input + label:after {
+        height: 2.2rem;
+    }
+}
+
+.ResourceCal .d-calendar .d-table input + label.legend-hover {
+    -webkit-animation: legendhover 1s infinite;
+    animation: legendhover 1s infinite;
+    z-index: 10;
+}
 
 @-webkit-keyframes legendhover {
   0% {
@@ -545,125 +715,208 @@
   100% {
     -webkit-transform: translate(0, 0px);
             transform: translate(0, 0px); } }
-        .ResourceCal .d-table input + label.next, .ResourceCal .d-table input + label.prev {
-          color: #ccc; }
-        .ResourceCal .d-table input + label [data-tooltip]:after {
-          content: '';
-          border-radius: 100%;
-          background-color: #1B363F;
-          width: 5px;
-          height: 5px;
-          position: absolute;
-          top: 0;
-          right: -10px; }
-        .ResourceCal .d-table input + label .d-tooltip {
-          position: absolute;
-          background-color: #1B363F;
-          color: #FFF;
-          padding: 7px;
-          font-size: .7em;
-          z-index: 13;
-          text-align: center;
-          top: 100%;
-          left: 50%;
-          -webkit-transform: translate(-50%, -5px);
-                  transform: translate(-50%, -5px);
-          display: none; }
-          .ResourceCal .d-table input + label .d-tooltip:before {
-            content: '';
-            border-bottom: 7px solid #1B363F;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            top: -7px;
-            left: 50%;
-            position: absolute;
-            margin-left: -5px; }
-          .ResourceCal .d-table input + label .d-tooltip:empty {
-            display: none !important; }
-        .ResourceCal .d-table input + label:hover .d-tooltip {
-          display: block; }
-      .ResourceCal .d-table input:checked + label {
-        color: contrast(#E95A5A, white, #666); }
-        .ResourceCal .d-table input:checked + label:before {
-          -webkit-transform: scaleX(1);
-                  transform: scaleX(1); }
-      .ResourceCal .d-table input:disabled + label {
-        cursor: not-allowed; }
-        .ResourceCal .d-table input:disabled + label:after {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 20%;
-          width: 60%;
-          height: 2px;
-          z-index: 10;
-          background-color: #c60000;
-          -webkit-transform-origin: center;
-                  transform-origin: center;
-          -webkit-transform: rotate(-25deg);
-                  transform: rotate(-25deg); }
-      .ResourceCal .d-table input + label.d-hidden {
-        cursor: default;
-        color: #ccc !important;
-        background: #f0f0f0 !important;
-        text-decoration: line-through; }
-        .ResourceCal .d-table input + label.d-hidden:after {
-          content: none; }
-  .ResourceCal .d-tables {
+
+.ResourceCal .d-calendar .d-table input + label.next, .ResourceCal .d-calendar .d-table input + label.prev {
+    color: #ccc;
+}
+
+.ResourceCal .d-calendar .d-table input + label [data-tooltip]:after {
+    content: '';
+    border-radius: 100%;
+    background-color: #1B363F;
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    top: 0;
+    right: -10px;
+}
+
+.ResourceCal .d-calendar .d-table input + label .d-tooltip {
+    position: absolute;
+    background-color: #1B363F;
+    color: #FFF;
+    padding: 7px;
+    font-size: .7em;
+    z-index: 13;
+    text-align: center;
+    top: 100%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -5px);
+    transform: translate(-50%, -5px);
+    display: none;
+}
+
+.ResourceCal .d-calendar .d-table input + label .d-tooltip:before {
+    content: '';
+    border-bottom: 7px solid #1B363F;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    top: -7px;
+    left: 50%;
+    position: absolute;
+    margin-left: -5px;
+}
+
+.ResourceCal .d-calendar .d-table input + label .d-tooltip:empty {
+    display: none !important;
+}
+
+.ResourceCal .d-calendar .d-table input + label:hover .d-tooltip {
+    display: block;
+}
+
+.ResourceCal .d-calendar .d-table input:checked + label {
+    color: white;
+}
+
+.ResourceCal .d-calendar .d-table input:checked + label:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.ResourceCal .d-calendar .d-table input:disabled + label {
+    cursor: not-allowed;
+}
+
+.ResourceCal .d-calendar .d-table input:disabled + label:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    width: 60%;
+    height: 2px;
+    z-index: 10;
+    background-color: #c60000;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    -webkit-transform: rotate(-25deg);
+    transform: rotate(-25deg);
+}
+
+.ResourceCal .d-calendar .d-table input + label.d-hidden {
+    cursor: default;
+    color: #ccc !important;
+    background: #f0f0f0 !important;
+    text-decoration: line-through;
+}
+
+.ResourceCal .d-calendar .d-table input + label.d-hidden:after {
+    content: none;
+}
+
+.ResourceCal .d-calendar .d-tables {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
+    -ms-flex: 1;
+    flex: 1;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap; }
-    .ResourceCal .d-tables:not(.locked) input:not(:checked) + label:not(.hidden):hover {
-      color: #222;
-      background-color: #eaeaea; }
-    .ResourceCal .d-tables.locked label {
-      cursor: default; }
-    .ResourceCal .d-tables.range:not(.before) input:not(.single):checked + label {
-      color: contrast(#E95A5A, white, #222); }
-      .ResourceCal .d-tables.range:not(.before) input:not(.single):checked + label ~ label:not(.hidden) {
-        color: contrast(#E95A5A, white, #222); }
-        .ResourceCal .d-tables.range:not(.before) input:not(.single):checked + label ~ label:not(.hidden):before {
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+.ResourceCal .d-calendar .d-tables:not(.locked) input:not(:checked) + label:not(.hidden):hover {
+    cursor: pointer;
+}
+
+.ResourceCal .d-calendar .d-tables:not(.locked) input:not(:checked) + label:not(.hidden):hover:before {
           -webkit-transform: scaleX(1);
                   transform: scaleX(1);
-          background-color: fade(#7DD076, 50%); }
-    .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label, .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ label:focus ~ label {
-      color: #666; }
-      .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label:before, .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ label:focus ~ label:before {
-        -webkit-transform: scaleX(0);
-                transform: scaleX(0); }
-      .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label.next, .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label.prev, .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ label:focus ~ label.next, .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ label:focus ~ label.prev {
-        color: contrast(#E95A5A, #ccc, #222); }
-    .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label {
-      color: contrast(#E95A5A, white, #666); }
-      .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label:before {
-        -webkit-transform: scaleX(1);
-                transform: scaleX(1);
-        background-color: #7DD076; }
-      .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label ~ label {
-        color: inherit; }
-        .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label ~ label.next, .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label ~ label.prev {
-          color: contrast(#E95A5A, #ccc, #222); }
-        .ResourceCal .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label ~ label:before {
-          -webkit-transform: scaleX(0);
-                  transform: scaleX(0); }
-    .ResourceCal .d-tables.range.before input:not(.single):not(:checked) + label {
-      color: contrast(#E95A5A, white, #666); }
-      .ResourceCal .d-tables.range.before input:not(.single):not(:checked) + label:before {
-        -webkit-transform: scaleX(1);
-                transform: scaleX(1);
-        background-color: rgba(233, 90, 90, 0.3); }
-    .ResourceCal .d-tables.range.before input:not(.single):checked + label ~ label {
-      color: inherit; }
-      .ResourceCal .d-tables.range.before input:not(.single):checked + label ~ label.next, .ResourceCal .d-tables.range.before input:not(.single):checked + label ~ label.prev {
-        color: contrast(#E95A5A, #ccc, #222); }
-      .ResourceCal .d-tables.range.before input:not(.single):checked + label ~ label:before {
-        -webkit-transform: scaleX(0);
-                transform: scaleX(0); }
+    background-color: #8fd789;
+}
+
+.ResourceCal .d-calendar .d-tables.locked label {
+    cursor: default;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked + label {
+    color: white;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked + label ~ label:not(.hidden) {
+    color: white;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked + label ~ label:not(.hidden):before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked + label ~ label:not(.hidden):after {
+    -webkit-transform: scaleX(2);
+    transform: scaleX(2);
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover:after {
+    -webkit-transform: scaleX(0) !important;
+    transform: scaleX(0) !important;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label, .ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label:focus ~ label {
+    color: #666;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label:before, .ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label:after, .ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label:focus ~ label:before, .ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label:focus ~ label:after {
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label.next, .ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label.prev, .ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label:focus ~ label.next, .ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ label:hover ~ label:focus ~ label.prev {
+    color: #222;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label {
+    color: white;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+    background-color: #7DD076;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label:after {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+    right: 50%;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label ~ label {
+    color: inherit;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label ~ label.next, .ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label ~ label.prev {
+    color: #222;
+}
+
+.ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label ~ label:before, .ResourceCal .d-calendar .d-tables.range:not(.before) input:not(.single):checked ~ input:checked + label ~ label:after {
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+}
+
+.ResourceCal .d-calendar .d-tables.range.before input:not(.single):not(:checked) + label {
+    color: white;
+}
+
+.ResourceCal .d-calendar .d-tables.range.before input:not(.single):not(:checked) + label:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+    background-color: rgba(63, 124, 172, 0.3);
+}
+
+.ResourceCal .d-calendar .d-tables.range.before input:not(.single):checked + label ~ label {
+    color: inherit;
+}
+
+.ResourceCal .d-calendar .d-tables.range.before input:not(.single):checked + label ~ label.next, .ResourceCal .d-calendar .d-tables.range.before input:not(.single):checked + label ~ label.prev {
+    color: #222;
+}
+
+.ResourceCal .d-calendar .d-tables.range.before input:not(.single):checked + label ~ label:before {
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+}
   .ResourceCal .d-fadeInUp {
     -webkit-backface-visibility: visible !important;
             backface-visibility: visible !important;
