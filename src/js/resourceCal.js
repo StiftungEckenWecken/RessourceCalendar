@@ -139,20 +139,26 @@
                 var container = document.createElement('div');
                 container.setAttribute('class', 'd-table');
                 for (var i = 0; i < 42; i++) {
+                    var id = ResourceCal.numInstances + '-' + x + '-d-day-' + i;
+
+                    var dateDiv = document.createElement('div');
+                    dateDiv.id = id;
+                    dateDiv.setAttribute('class', 'd-date');
+
                     var input = document.createElement('input');
                     input.type = 'checkbox';
-                    input.id = ResourceCal.numInstances + '-' + x + '-d-day-' + i;
+                    input.id = id + '_input';
                     var label = document.createElement('label');
-                    label.setAttribute("for", ResourceCal.numInstances + '-' + x + '-d-day-' + i);
+                    label.setAttribute("for", id + '_input');
 
                     var text = document.createElement('text');
 
                     var tooltip = document.createElement('span');
                     tooltip.setAttribute('class', 'd-tooltip');
 
-
-                    container.appendChild(input);
-                    container.appendChild(label);
+                    dateDiv.appendChild(input);
+                    dateDiv.appendChild(label);
+                    container.appendChild(dateDiv);
 
                     label.appendChild(text);
                     label.appendChild(tooltip);
@@ -349,7 +355,7 @@
 
         function generateLegends() {
             var start = new Date(that.el.calendar.tables.childNodes[0].childNodes[0].getAttribute('data-date'));
-            var end = new Date(that.el.calendar.tables.childNodes[months - 1].childNodes[82].getAttribute('data-date'));
+            var end = new Date(that.el.calendar.tables.childNodes[months - 1].childNodes[41].childNodes[0].getAttribute('data-date'));
             var _highlights = highlight.filter(function (x) {
                 for (var m = 0; m < x.dates.length; m++) {
                     if (x.dates[m].start < end && x.dates[m].end > start) {
@@ -423,8 +429,9 @@
                 var monthText = languages[lang].monthNames[parseMonth(month - 1 + index)];
                 element.setAttribute('data-month', monthText);
 
-                [].slice.call(element.querySelectorAll('.d-table input')).forEach(function (inputEl, i) {
-                    var labelEl = inputEl.nextSibling;
+                [].slice.call(element.querySelectorAll('.d-table div')).forEach(function (div, i) {
+                    var inputEl = div.childNodes[0];
+                    var labelEl = div.childNodes[1];
 
                     inputEl.checked = false;
                     inputEl.removeAttribute('disabled');
@@ -649,7 +656,7 @@
             var el = getDayElement(_date);
 
             if (range && el && el.checked) {
-                el.classList.add('single');
+                el.parentNode.classList.add('single')
             }
 
             if (el && !el.checked) {
@@ -669,8 +676,9 @@
 
             var el = getDayElement(_date);
             if (el) {
-                el.classList.remove('single');
+                el.parentNode.classList.remove('single');
                 if (el.checked) {
+                    el.parentNode.classList.remove('checked');
                     el.checked = false;
                 }
             }
@@ -693,14 +701,22 @@
         function inputChange(e) {
             var input = this;
             var date = new Date(input.getAttribute('data-date'));
-            input.classList.remove('single');
+            var dateDiv = input.parentNode;
+
+            dateDiv.classList.remove('single');
+            dateDiv.classList.remove('first');
+            dateDiv.classList.remove('last');
+
             if (locked) {
                 return;
             }
+
             if (range) {
                 that.el.calendar.tables.classList.remove('before');
             }
+
             if (input.checked) {
+                dateDiv.classList.add('checked');
 
                 if (maxSelections && (selectedDates.length > maxSelections - 1)) {
                     unselectAll()
@@ -709,12 +725,17 @@
                 if (range && selectedDates.length) {
                     var first = getDayElement(selectedDates[0]);
                     if (date > selectedDates[0]) {
+                        dateDiv.classList += ' last';
+
                         if (!first) {
                             that.el.calendar.tables.classList.add('before');
                         }
                     } else {
                         unselectAll()
+                        dateDiv.classList.add('first');
                     }
+                } else {
+                    dateDiv.classList.add('first');
                 }
 
                 selectedDates.push(date);
@@ -723,12 +744,15 @@
                     that.hide();
                 }
             } else {
+
                 if (range && selectedDates.length == 1 && getDayString(selectedDates[0]) === getDayString(date)) {
                     selectDate(date);
-                    input.classList.add('single');
+                    dateDiv.classList.add('single');
                 } else {
                     unselectAll();
                     input.checked = true;
+                    dateDiv.classList.add('checked');
+                    dateDiv.classList.add('first');
                     selectedDates.push(date);
                 }
             }
