@@ -606,22 +606,44 @@
         }
 
         function renderSelectedDates() {
-            selectedDates.forEach(function (date) {
+            selectedDates.forEach(function (date, i) {
                 var el = getDayElement(date);
                 if (el) {
-                    el.checked = true;
+                    if (el.checked === true) {
+                        el.parentNode.classList.add('single');
+                    } else {
+                        el.checked = true;
+                        el.parentNode.classList.add('checked');
+
+                        if (i === 0) {
+                            el.parentNode.classList.add('first');
+                        }
+                        if (i === 1) {
+                            el.parentNode.classList.add('last');
+                        }
+                    }
+
                 }
             });
 
             that.el.calendar.tables.classList.remove('before');
-            if (range && selectedDates.length > 1) {
+            if (range && selectedDates.length) {
                 var currentDate = new Date(currentYear, currentMonth - 1, 1);
                 var sorted = selectedDates.sort(function (a, b) {
                     return a.getTime() - b.getTime()
                 });
                 var first = getDayElement(sorted[0]);
-                if (!first && currentDate >= new Date(sorted[0].getFullYear(), sorted[0].getMonth(), 1) && currentDate <= new Date(sorted[1].getFullYear(), sorted[1].getMonth(), 1)) {
-                    that.el.calendar.tables.classList.add('before');
+
+                if (!first) {
+                    var before = currentDate >= new Date(sorted[0].getFullYear(), sorted[0].getMonth(), 1);
+
+                    if (selectedDates.length > 1) {
+                        before = before && currentDate <= new Date(sorted[1].getFullYear(), sorted[1].getMonth(), 1);
+                    }
+
+                    if (before) {
+                        that.el.calendar.tables.classList.add('before');
+                    }
                 }
             }
         }
@@ -629,6 +651,10 @@
         function resetCalendar() {
             [].slice.call(that.el.querySelectorAll('.d-table input')).forEach(function (inputEl) {
                 inputEl.checked = false;
+                inputEl.parentNode.classList.remove('checked');
+                inputEl.parentNode.classList.remove('single');
+                inputEl.parentNode.classList.remove('first');
+                inputEl.parentNode.classList.remove('last');
             });
 
             [].slice.call(that.el.calendar.monthPicker.querySelectorAll('.current')).forEach(function (monthPickEl) {
@@ -661,6 +687,7 @@
 
             if (el && !el.checked) {
                 el.checked = true;
+                el.parentNode.classList.add('checked');
             }
 
 
@@ -701,6 +728,7 @@
         function inputChange(e) {
             var input = this;
             var date = new Date(input.getAttribute('data-date'));
+            console.log(input.getAttribute('data-date'), date)
             var dateDiv = input.parentNode;
 
             dateDiv.classList.remove('single');
@@ -795,7 +823,7 @@
 
         function setDateField(name, date) {
             var field = that.el.form.querySelector('[data-date-field="' + name + '"]');
-            field.innerText = date instanceof Date ? date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear() : date;
+            field.innerText = date instanceof Date ? date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() : date;
         }
 
         function setTime(name) {

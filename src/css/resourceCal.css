@@ -824,11 +824,11 @@
     overflow: hidden;
 }
 
-.ResourceCal .d-calendar .d-tables:not(.locked) .d-date:not(.checked) label:not(.hidden):hover {
+.ResourceCal .d-calendar .d-tables:not(.locked) .d-date:not(.checked):hover label:not(.hidden) {
     cursor: pointer;
 }
 
-.ResourceCal .d-calendar .d-tables:not(.locked) .d-date:not(.checked) label:not(.hidden):hover:before {
+.ResourceCal .d-calendar .d-tables:not(.locked) .d-date:not(.checked):hover label:not(.hidden):before {
     -webkit-transform: scale(1);
     transform: scale(1);
     background-color: #8fd789;
@@ -928,27 +928,70 @@
     transform: scale(0);
 }
 
-.ResourceCal .d-calendar .d-tables.range.before input:not(.single):not(:checked) + label {
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):not(.checked) label {
     color: white;
 }
 
-.ResourceCal .d-calendar .d-tables.range.before input:not(.single):not(:checked) + label:before {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-    background-color: rgba(63, 124, 172, 0.3);
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):not(.checked) label:before {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    background-color: #80add1;
 }
 
-.ResourceCal .d-calendar .d-tables.range.before input:not(.single):checked + label ~ label {
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):not(.checked) label:after {
+    -webkit-transform: scaleX(2);
+    transform: scaleX(2);
+    background-color: #80add1;
+}
+
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label {
     color: inherit;
 }
 
-.ResourceCal .d-calendar .d-tables.range.before input:not(.single):checked + label ~ label.next, .ResourceCal .d-calendar .d-tables.range.before input:not(.single):checked + label ~ label.prev {
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label.prev {
     color: #222;
 }
 
-.ResourceCal .d-calendar .d-tables.range.before input:not(.single):checked + label ~ label:before {
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label:before {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label:after {
     -webkit-transform: scaleX(0);
     transform: scaleX(0);
+}
+
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover label:before {
+    -webkit-transform: scale(1) !important;
+    transform: scale(1) !important;
+    background-color: #a1dd9c !important;
+    z-index: 5;
+}
+
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover label:after {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+    background-color: #80add1;
+    right: 50%;
+}
+
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label {
+    color: #666;
+}
+
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label:after, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label:after {
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+}
+
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label.prev, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label.prev {
+    color: #222;
+}
+
+.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:not(.checked) label:before, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date:not(.checked) label:before {
+    -webkit-transform: scale(0);
+    transform: scale(0);
 }
   .ResourceCal .d-fadeInUp {
     -webkit-backface-visibility: visible !important;

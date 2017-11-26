@@ -813,9 +813,9 @@ $spin: -15;
       overflow: hidden;
 
       &:not(.locked) {
-        .d-date:not(.checked) {
+        .d-date:not(.checked):hover {
 
-          label:not(.hidden):hover {
+          label:not(.hidden) {
             cursor: pointer;
 
             &:before {
@@ -957,25 +957,84 @@ $spin: -15;
           }
         }
 
-        &.before input:not(.single) {
-          &:not(:checked) + label {
-            color: contrast-color($color, white, #666);
+        &.before .d-date:not(.single) {
 
-            &:before {
-              transform: scaleX(1);
-              background-color: rgba($color, .3);
+          &:not(.checked) {
+            label {
+              color: contrast-color($color, white, #666);
+
+              &:before {
+                transform: scale(1);
+                background-color: lighten($color, 20%);
+              }
+
+              &:after {
+                transform: scaleX(2);
+                background-color: lighten($color, 20%);
+              }
             }
           }
 
-          &:checked + label ~ label {
-            color: inherit;
+          &.checked {
+            & ~ .d-date {
+              label {
+                color: inherit;
 
-            &.next, &.prev {
-              color: contrast-color($color, #ccc, #222);
+                &.next, &.prev {
+                  color: contrast-color($color, #ccc, #222);
+                }
+
+                &:before {
+                  transform: scale(0);
+                }
+
+                &:after {
+                  transform: scaleX(0);
+                }
+              }
+            }
+          }
+
+          &:hover {
+
+            label {
+
+              &:before {
+                transform: scale(1) !important;
+                background-color: lighten($selectColor, 10%) !important;
+                z-index: 5;
+              }
+
+              &:after {
+                transform: scaleX(1);
+                background-color: lighten($color, 20%);
+                right: 50%;
+              }
             }
 
-            &:before {
-              transform: scaleX(0);
+            & ~ .d-date, & ~ .d-date:focus ~ .d-date {
+
+              label {
+
+                &:after {
+                  transform: scaleX(0);
+                }
+
+                color: #666;
+
+                &.next, &.prev {
+                  color: contrast-color($color, #ccc, #222);
+                }
+              }
+
+              &:not(.checked) {
+
+                label {
+                  &:before {
+                    transform: scale(0);
+                  }
+                }
+              }
             }
           }
         }
