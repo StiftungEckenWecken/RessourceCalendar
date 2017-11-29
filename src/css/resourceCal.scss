@@ -672,9 +672,7 @@ $spin: -15;
             content: '';
             position: absolute;
             top: calc(50% - 1.4rem);
-            bottom: calc(50% - 1.4rem);
             left: calc(50% - 1.4rem);
-            right: calc(50% - 1.4rem);
             height: 2.8rem;
             width: 2.8rem;
             border-radius: 50%;
@@ -687,6 +685,8 @@ $spin: -15;
             @media screen and (max-width: 425px) {
               height: 2.2rem;
               width: 2.2rem;
+              top: calc(50% - 1.1rem);
+              left: calc(50% - 1.1rem);
             }
           }
 
@@ -705,6 +705,7 @@ $spin: -15;
 
             @media screen and (max-width: 425px) {
               height: 2.2rem;
+              top: calc(50% - 1.1rem);
             }
           }
 
