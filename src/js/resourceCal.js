@@ -676,6 +676,11 @@
             setDate();
         }
 
+        /**
+         *
+         * @param date : string
+         * @param ignoreOnSelect : boolean
+         */
         function selectDate(date, ignoreOnSelect) {
             var _date = new Date(date);
 
@@ -698,6 +703,11 @@
             }
         }
 
+        /**
+         *
+         * @param date : string
+         * @param ignoreOnSelect : boolean
+         */
         function unselectDate(date, ignoreOnSelect) {
             var _date = new Date(date);
 
@@ -711,20 +721,28 @@
             }
 
             selectedDates = selectedDates.filter(function (x) {
-                return x.getTime() != date.getTime()
+                return x.getTime() !== _date.getTime()
             });
 
             if (onSelect && !ignoreOnSelect) {
                 onSelect.call(_date, false);
             }
-        };
+        }
 
+        /**
+         *
+         * @param ignoreOnSelect
+         */
         function unselectAll(ignoreOnSelect) {
             selectedDates.forEach(function (date) {
                 unselectDate(date, ignoreOnSelect);
             });
-        };
+        }
 
+        /**
+         *
+         * @param e : Event
+         */
         function inputChange(e) {
             var input = this;
             var date = new Date(input.getAttribute('data-date'));
@@ -805,9 +823,13 @@
                 onSelect.call(date, input.checked);
             }
             console.log(selectedDates);
-            
+
         }
 
+        /**
+         *
+         * @param e : Event
+         */
         function timeChange(e) {
             var input = this;
             var name = input.getAttribute('data-time-field');
@@ -817,16 +839,29 @@
 
         }
 
+        /**
+         *
+         * @param e : Event
+         */
         function amountChange(e) {
             console.log(this);
             selectedAmount = e.currentTarget.value;
         }
 
+        /**
+         *
+         * @param name : string
+         * @param date
+         */
         function setDateField(name, date) {
             var field = that.el.form.querySelector('[data-date-field="' + name + '"]');
             field.innerText = date instanceof Date ? date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() : date;
         }
 
+        /**
+         *
+         * @param name : string
+         */
         function setTime(name) {
             var input = getTimeField(name);
             var index = name === 'start' ? 0 : 1;
@@ -834,10 +869,21 @@
             selectedDates[index] = setTimeOfDateFromTimeField(selectedDates[index], input.value);
         }
 
+        /**
+         *
+         * @param name : string
+         * @returns {Element}
+         */
         function getTimeField(name) {
             return that.el.form.querySelector('[data-time-field="' + name + '"]');
         }
 
+        /**
+         *
+         * @param date : Date
+         * @param time
+         * @returns {*}
+         */
         function setTimeOfDateFromTimeField(date, time) {
             time = time.split(':');
             date.setHours(time[0], time[1]);
@@ -845,15 +891,30 @@
             return date;
         }
 
+        /**
+         *
+         * @param date : Date
+         * @returns {number}
+         */
         function getDayString(date) {
             return date.getDate() + date.getMonth() + date.getFullYear();
         }
 
+        /**
+         *
+         * @param date : Date
+         * @returns {Element}
+         */
         function getDayElement(date) {
             date.setHours(0, 0, 0, 0);
             return that.el.querySelector('[data-date="' + date.toJSON() + '"]');
         }
 
+        /**
+         *
+         * @param name : string
+         * @param x : boolean
+         */
         function setDisabledOfTimeField(name, x) {
             var input = that.el.form.querySelector('[data-time-field="' + name + '"]');
 
@@ -869,11 +930,19 @@
             input.disabled = x;
         }
 
+        /**
+         *
+         * @param x : boolean
+         */
         function setDisabledOfSelectField(x) {
             var input = that.el.form.querySelector('[data-field="amount"]');
             input.disabled = x;
         }
 
+        /**
+         *
+         * @param val
+         */
         function setRange(val) {
             if (val) {
                 range = true;
@@ -883,7 +952,13 @@
                 that.el.calendar.tables.classList.remove('range');
             }
         }
-        
+
+        /**
+         *
+         * @param month
+         * @param year
+         * @private
+         */
         function __depotLoadMonth(month,year) {
           // ajax & ajax.success
          // __depotGetAvail(month,year);
@@ -943,6 +1018,10 @@
           
         }
 
+        /**
+         *
+         * @param properties
+         */
         function show(properties) {
             if (!that.inline && that.container === document.body) {
                 document.body.classList.add('d-noscroll');
@@ -1115,10 +1194,14 @@
             return new Date(currentYear, currentMonth - 1, 1);
         }
 
+        /**
+         *
+         * @param x : string
+         */
         function currentDateSetter(x) {
-            x = new Date(x);
-            currentMonth = x.getMonth() + 1;
-            currentYear = x.getFullYear();
+            var _date = new Date(x);
+            currentMonth = _date.getMonth() + 1;
+            currentYear = _date.getFullYear();
             setDate();
         }
 
