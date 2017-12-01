@@ -92,6 +92,7 @@
         var inline = false;
         var lang = 'en';
         var onSelect = null;
+        var blockedPeriods = [];
         var disabledDates = [];
         var disabledDays = [];
         var highlight = [];
@@ -103,6 +104,7 @@
         var maxDate = null;
         var weekStart = null;
         var locked = false;
+        var totalAmount = 0;
 
         function generateDaynames() {
             that.el.calendar.days.innerHTML = '';
@@ -473,6 +475,10 @@
                             inputEl.setAttribute('disabled', true);
                         }
 
+                        if (!hasFreeTime(date)) {
+                            inputEl.setAttribute('disabled', 'disabled');
+                        }
+
                         if ((minDate && date < minDate) || (maxDate && date > maxDate)) {
                             inputEl.setAttribute('disabled', true);
                             labelEl.className = 'd-hidden';
@@ -678,13 +684,11 @@
 
         /**
          *
-         * @param date : string
+         * @param date : Date
          * @param ignoreOnSelect : boolean
          */
         function selectDate(date, ignoreOnSelect) {
-            var _date = new Date(date);
-
-            var el = getDayElement(_date);
+            var el = getDayElement(date);
 
             if (range && el && el.checked) {
                 el.parentNode.classList.add('single')
@@ -696,36 +700,36 @@
             }
 
 
-            selectedDates.push(_date);
+            selectedDates.push(date);
 
             if (onSelect && !ignoreOnSelect) {
-                onSelect.apply(_date, [true]);
+                onSelect.apply(date, [true]);
             }
         }
 
         /**
          *
-         * @param date : string
+         * @param date : Date
          * @param ignoreOnSelect : boolean
          */
         function unselectDate(date, ignoreOnSelect) {
-            var _date = new Date(date);
-
-            var el = getDayElement(_date);
+            var el = getDayElement(date);
             if (el) {
                 el.parentNode.classList.remove('single');
                 if (el.checked) {
                     el.parentNode.classList.remove('checked');
+                    el.parentNode.classList.remove('first');
+                    el.parentNode.classList.remove('last');
                     el.checked = false;
                 }
             }
 
             selectedDates = selectedDates.filter(function (x) {
-                return x.getTime() !== _date.getTime()
+                return x.getTime() !== date.getTime()
             });
 
             if (onSelect && !ignoreOnSelect) {
-                onSelect.call(_date, false);
+                onSelect.call(date, false);
             }
         }
 
@@ -746,7 +750,6 @@
         function inputChange(e) {
             var input = this;
             var date = new Date(input.getAttribute('data-date'));
-            console.log(input.getAttribute('data-date'), date)
             var dateDiv = input.parentNode;
 
             dateDiv.classList.remove('single');
@@ -765,20 +768,21 @@
                 dateDiv.classList.add('checked');
 
                 if (maxSelections && (selectedDates.length > maxSelections - 1)) {
-                    unselectAll()
+                    console.log('max')
+                    unselectAll();
+                    dateDiv.classList.add('first');
                 }
 
                 if (range && selectedDates.length) {
                     var first = getDayElement(selectedDates[0]);
                     if (date > selectedDates[0]) {
                         dateDiv.classList += ' last';
-                        depotGetAvailability(selectedDates);
 
                         if (!first) {
                             that.el.calendar.tables.classList.add('before');
                         }
                     } else {
-                        unselectAll()
+                        unselectAll();
                         dateDiv.classList.add('first');
                     }
                 } else {
@@ -816,14 +820,17 @@
                 setTime('start');
                 if (!!(selectedDates[0] && selectedDates[1])) {
                     setTime('end');
+
+                    if (blockedPeriods.length) {
+                        console.log(selectedDates);
+                        setAmount(getFreeAmount(selectedDates[0], selectedDates[1]));
+                    }
                 }
             }
 
             if (onSelect) {
                 onSelect.call(date, input.checked);
             }
-            console.log(selectedDates);
-
         }
 
         /**
@@ -912,6 +919,22 @@
 
         /**
          *
+         * @param amount : int
+         */
+        function setAmount(amount) {
+            console.log('amount', amount)
+            var select = that.el.form.querySelector('[data-field="amount"]');
+            select.innerHTML = '';
+            for (var i = 0; i <= amount; i++) {
+                var option = document.createElement('option');
+                option.innerText = i;
+                option.selected = i === amount;
+                select.appendChild(option);
+            }
+        }
+
+        /**
+         *
          * @param name : string
          * @param x : boolean
          */
@@ -959,63 +982,63 @@
          * @param year
          * @private
          */
-        function __depotLoadMonth(month,year) {
-          // ajax & ajax.success
-         // __depotGetAvail(month,year);
+        function __depotLoadMonth(month, year) {
+            // ajax & ajax.success
+            // __depotGetAvail(month,year);
         }
-        
+
         /**
-         * @function depotGetAvailability
-         * @param begin : int / array
-         * @param end : int
-         * @return int ressourceIds.length
+         * @param begin : Date
+         * @param end : Date
+         * @return int
          */
-        function depotGetAvailability(begin, end) {
-            
-          if (Array.isArray(begin)){
-              
-            var end = begin[1].getTime();
-            begin = begin[0].getTime();
+        function getFreeAmount(begin, end) {
 
-          }
+            var _end = (new Date(end)).getTime();
+            var _begin = (new Date(begin)).getTime();
 
-        //  end = (new Date('2017-11-18T22:55:00.000Z')).getTime();
+            // Later: ajax.success(function(data){
 
-          console.log('depotGetAvail',begin,end,demo);          
-          
-          // Later: ajax.success(function(data){
-          
-          ressourceIds = []; // = status free
-          cleanUpIds = []; // = status blocked / booked
-          
-          demo.forEach(function(event) {
-          
-            event_begin = (new Date(event.start)).getTime();
-            event_end = (new Date(event.end)).getTime(); 
-                                                    
-            if ( (event_begin <= begin && event_end <= end) 
-                 && (event_begin <= end && end >= event_begin) ){
-                 
-            /*((strtotime($event['start']) <= strtotime($start_date) && strtotime($event['end']) <= strtotime($end_date))
-             || (strtotime($event['start']) <= strtotime($end_date) && strtotime($event['end']) >= strtotime($start_date))){*/
-              if (event.blocking){
-                cleanUpIds[event.resourceId] = event.resourceId;
-                console.log('blocked',event.resourceId);
-              } else {
-                ressourceIds[event.resourceId] = event.resourceId;
-              }            
-            }
-            
-          });
-          
-          for (var key in cleanUpIds) {
-            console.log('reset',key);
-            delete ressourceIds[key];
-          }
-          
-          console.log('result',ressourceIds);
-          return ressourceIds.length;
-          
+            var freeAmount = totalAmount;
+
+            blockedPeriods.forEach(function (period) {
+
+                var p_begin = (new Date(period.start)).getTime();
+                var p_end = (new Date(period.end)).getTime();
+
+                if ((p_begin <= _begin && p_end >= _begin) || (p_begin >= _begin && p_begin <= _end)) {
+                    freeAmount--
+                }
+
+            });
+
+            return freeAmount;
+        }
+
+        /**
+         * @param date : Date
+         * @return boolean
+         */
+        function hasFreeTime(date) {
+            var _begin = (new Date(date)).setHours(0, 0, 0, 0);
+            var _end = (new Date(date)).setHours(23, 59);
+
+            // Later: ajax.success(function(data){
+
+            var freeAmount = totalAmount;
+
+            blockedPeriods.forEach(function (period) {
+
+                var p_begin = (new Date(period.start)).getTime();
+                var p_end = (new Date(period.end)).getTime();
+
+                if (p_begin <= _begin && p_end >= _end) {
+                    freeAmount--
+                }
+
+            });
+
+            return freeAmount > 0;
         }
 
         /**
@@ -1040,7 +1063,7 @@
                 currentYear = startDate.getFullYear();
             }
             setDate();
-            __depotLoadMonth(currentMonth,currentYear);
+            __depotLoadMonth(currentMonth, currentYear);
         }
 
         function hide() {
@@ -1182,6 +1205,20 @@
             if (window.FastClick != null) {
                 FastClick.attach(that.el);
             }
+
+            /*todo: is for testing; remove after*/
+            var _highlight = [];
+            console.log(blockedPeriods)
+            blockedPeriods.forEach(function (period) {
+                _highlight.push({
+                    start: new Date(period.start),
+                    end: new Date(period.end),
+                    backgroundColor: '#843536',
+                    color: '#fff',
+                    legend: 'blocked'
+                })
+            })
+            that.highlight = _highlight;
         }
 
         that.show = show;
@@ -1356,6 +1393,26 @@
                     setDate();
                 }
             },
+            "blockedPeriods": {
+                get: function () {
+                    return blockedPeriods;
+                },
+                set: function (x) {
+                    if (x instanceof Array) {
+                        x.forEach(function (period) {
+                            if (period.start && period.end) {
+                                blockedPeriods.push({
+                                    start: new Date(period.start),
+                                    end: new Date(period.end),
+                                    title: period.title
+                                });
+                            }
+                        });
+                    } else if (!x) {
+                        blockedPeriods = [];
+                    }
+                }
+            },
             "highlight": {
                 get: function () {
                     return highlight;
@@ -1414,6 +1471,7 @@
                     } else if (!x) {
                         highlight = [];
                     }
+                    console.log(highlight)
 
                     setDate();
                 }
@@ -1426,6 +1484,18 @@
             "onSelect": {
                 set: function (callback) {
                     onSelect = callback;
+                }
+            },
+            "totalAmount": {
+                get: function () {
+                    return totalAmount;
+                },
+                set: function (x) {
+                    if (typeof x == 'number' && x > 0) {
+                        totalAmount = x;
+                    } else {
+                        totalAmount = 0;
+                    }
                 }
             },
             "today": {
