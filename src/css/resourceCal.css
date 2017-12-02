@@ -613,12 +613,12 @@
     cursor: not-allowed;
 }
 
-.ResourceCal .d-calendar .d-table .d-date input:disabled + label:after {
+.ResourceCal .d-calendar .d-table .d-date input:disabled + label text:after {
     content: '';
     position: absolute;
     top: 50%;
-    left: 20%;
-    width: 60%;
+    left: -1rem;
+    width: 2.5rem;
     height: 2px;
     z-index: 10;
     background-color: #c60000;

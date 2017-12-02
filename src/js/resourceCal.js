@@ -768,7 +768,6 @@
                 dateDiv.classList.add('checked');
 
                 if (maxSelections && (selectedDates.length > maxSelections - 1)) {
-                    console.log('max')
                     unselectAll();
                     dateDiv.classList.add('first');
                 }
@@ -815,14 +814,12 @@
                 setDisabledOfTimeField('start', !(selectedDates[0] && selectedDates[1]));
                 setDisabledOfTimeField('end', !(selectedDates[0] && selectedDates[1]));
                 setDisabledOfSelectField(!(selectedDates[0] && selectedDates[1]));
-                that.el.button.disabled = !((selectedDates[0] && selectedDates[1]) && selectedAmount);
 
                 setTime('start');
                 if (!!(selectedDates[0] && selectedDates[1])) {
                     setTime('end');
 
                     if (blockedPeriods.length) {
-                        console.log(selectedDates);
                         setAmount(getFreeAmount(selectedDates[0], selectedDates[1]));
                     }
                 }
@@ -844,6 +841,8 @@
             var index = name === 'start' ? 0 : 1;
             selectedDates[index] = setTimeOfDateFromTimeField(selectedDates[index], input.value);
 
+            // check again for free amount
+            setAmount(getFreeAmount(selectedDates[0], selectedDates[1]));
         }
 
         /**
@@ -851,8 +850,9 @@
          * @param e : Event
          */
         function amountChange(e) {
-            console.log(this);
             selectedAmount = e.currentTarget.value;
+
+            that.el.button.disabled = !((selectedDates[0] && selectedDates[1]) && selectedAmount > 0);
         }
 
         /**
@@ -922,14 +922,23 @@
          * @param amount : int
          */
         function setAmount(amount) {
-            console.log('amount', amount)
             var select = that.el.form.querySelector('[data-field="amount"]');
+            var value = select.value;
+
             select.innerHTML = '';
+
             for (var i = 0; i <= amount; i++) {
                 var option = document.createElement('option');
                 option.innerText = i;
                 option.selected = i === amount;
                 select.appendChild(option);
+            }
+
+            if (value !== amount.toString()) {
+                var changeEvent = new Event('change');
+
+                select.value = amount;
+                select.dispatchEvent(changeEvent);
             }
         }
 
@@ -1207,7 +1216,7 @@
             }
 
             /*todo: is for testing; remove after*/
-            var _highlight = [];
+            /*var _highlight = [];
             console.log(blockedPeriods)
             blockedPeriods.forEach(function (period) {
                 _highlight.push({
@@ -1218,7 +1227,7 @@
                     legend: 'blocked'
                 })
             })
-            that.highlight = _highlight;
+            that.highlight = _highlight;*/
         }
 
         that.show = show;
