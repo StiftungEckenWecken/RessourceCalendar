@@ -9,6 +9,10 @@
         ResourceCal.numInstances = (ResourceCal.numInstances || 0) + 1;
         var that = this;
         var eventName = 'click';
+        var selectedDateTimes = {
+            start: '00:00',
+            end: '23:55'
+        };
         var selectedDates = [];
         var selectedAmount = 0;
 
@@ -770,12 +774,14 @@
                 if (maxSelections && (selectedDates.length > maxSelections - 1)) {
                     unselectAll();
                     dateDiv.classList.add('first');
+                    date = setTimeOfDateFromTimeField(date, selectedDateTimes.start);
                 }
 
                 if (range && selectedDates.length) {
                     var first = getDayElement(selectedDates[0]);
                     if (date > selectedDates[0]) {
-                        dateDiv.classList += ' last';
+                        dateDiv.classList.add('last');
+                        date = setTimeOfDateFromTimeField(date, selectedDateTimes.end);
 
                         if (!first) {
                             that.el.calendar.tables.classList.add('before');
@@ -783,9 +789,11 @@
                     } else {
                         unselectAll();
                         dateDiv.classList.add('first');
+                        date = setTimeOfDateFromTimeField(date, selectedDateTimes.start);
                     }
                 } else {
                     dateDiv.classList.add('first');
+                    date = setTimeOfDateFromTimeField(date, selectedDateTimes.start);
                 }
 
                 selectedDates.push(date);
@@ -803,6 +811,8 @@
                     input.checked = true;
                     dateDiv.classList.add('checked');
                     dateDiv.classList.add('first');
+                    date = setTimeOfDateFromTimeField(date, selectedDateTimes.start);
+
                     selectedDates.push(date);
                 }
             }
@@ -838,8 +848,7 @@
             var input = this;
             var name = input.getAttribute('data-time-field');
 
-            var index = name === 'start' ? 0 : 1;
-            selectedDates[index] = setTimeOfDateFromTimeField(selectedDates[index], input.value);
+            setTime(name, input.value);
 
             // check again for free amount
             setAmount(getFreeAmount(selectedDates[0], selectedDates[1]));
@@ -868,12 +877,19 @@
         /**
          *
          * @param name : string
+         * @param value : string optional
          */
-        function setTime(name) {
-            var input = getTimeField(name);
+        function setTime(name, value) {
+
+            if (typeof value === 'undefined') {
+                value = selectedDateTimes[name];
+            } else {
+                selectedDateTimes[name] = value;
+            }
+
             var index = name === 'start' ? 0 : 1;
 
-            selectedDates[index] = setTimeOfDateFromTimeField(selectedDates[index], input.value);
+            selectedDates[index] = setTimeOfDateFromTimeField(selectedDates[index], value);
         }
 
         /**
@@ -1259,6 +1275,11 @@
                     });
                 }
             },
+            "selectedAmount": {
+                get: function () {
+                    return selectedAmount
+                }
+            },
             "range": {
                 get: function () {
                     return range;
@@ -1480,8 +1501,6 @@
                     } else if (!x) {
                         highlight = [];
                     }
-                    console.log(highlight)
-
                     setDate();
                 }
             },

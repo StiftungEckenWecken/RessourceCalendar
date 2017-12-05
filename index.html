@@ -37,7 +37,16 @@
                     weekStart: 1,
                     button: 'Buchen',
                     blockedPeriods: blockedEvents,
-                    totalAmount: maxAmount
+                    totalAmount: maxAmount,
+                    onConfirm: function () {
+                        var cal = this;
+                        var values = {
+                            dates: cal.selectedDates,
+                            amount: cal.selectedAmount
+                        };
+//                        console.log(JSON.stringify(values))
+                        alert('Daten (Dates in UTC): ' + JSON.stringify(values));
+                    }
                 });
             </script>
         </div>
