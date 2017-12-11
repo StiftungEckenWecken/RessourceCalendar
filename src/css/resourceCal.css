@@ -278,6 +278,12 @@
         padding: 12px 4%;
       border-top: 1px solid #eaeaea; }
 
+@media (max-width: 375px) {
+    .ResourceCal .d-form .d-form-field {
+        padding: 8px 3%;
+    }
+}
+
 .ResourceCal .d-form .d-form-field.d-form-field-half {
     width: 50%;
 }
@@ -313,6 +319,11 @@
     display: none;
     -webkit-appearance: none;
     margin: 0;
+}
+
+.ResourceCal .d-form .d-form-field .d-form-field-t:focus {
+    border: none;
+    outline: #3f7cac auto medium;
 }
 
 .ResourceCal .d-form .d-form-field .d-form-field-s {

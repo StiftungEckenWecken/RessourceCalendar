@@ -10,8 +10,8 @@
         var that = this;
         var eventName = 'click';
         var selectedDateTimes = {
-            start: '00:00',
-            end: '23:55'
+            start: null,
+            end: null
         };
         var selectedDates = [];
         var selectedAmount = 0;
@@ -244,9 +244,11 @@
                 }
 
                 function getTime() {
-                    var time = this.value.split(':');
-                    hourSelect.value = time[0];
-                    minuteSelect.value = time[1];
+                    if (this.value) {
+                        var time = this.value.split(':');
+                        hourSelect.value = time[0];
+                        minuteSelect.value = time[1];
+                    }
                 }
 
                 var fallbackTime = document.createElement('div');
@@ -313,7 +315,7 @@
                 fieldTime.setAttribute('class', 'd-form-field-t');
                 fieldTime.setAttribute('data-time-field', name);
                 fieldTime.setAttribute('type', 'time');
-                fieldTime.setAttribute('value', name === 'start' ? '00:00' : '23:55');
+                fieldTime.setAttribute('value', null);
                 fieldTime.setAttribute('placeholder', timePlaceholder);
                 fieldTime.disabled = true;
 
@@ -832,12 +834,16 @@
                     if (blockedPeriods.length) {
                         setAmount(getFreeAmount(selectedDates[0], selectedDates[1]));
                     }
+
+                    getTimeField('start').focus();
                 }
             }
 
             if (onSelect) {
                 onSelect.call(date, input.checked);
             }
+
+            checkForm();
         }
 
         /**
@@ -852,6 +858,7 @@
 
             // check again for free amount
             setAmount(getFreeAmount(selectedDates[0], selectedDates[1]));
+            checkForm();
         }
 
         /**
@@ -861,7 +868,7 @@
         function amountChange(e) {
             selectedAmount = e.currentTarget.value;
 
-            that.el.button.disabled = !((selectedDates[0] && selectedDates[1]) && selectedAmount > 0);
+            checkForm();
         }
 
         /**
@@ -908,10 +915,22 @@
          * @returns {*}
          */
         function setTimeOfDateFromTimeField(date, time) {
-            time = time.split(':');
-            date.setHours(time[0], time[1]);
+            if (time) {
+                time = time.split(':');
+                date.setHours(time[0], time[1]);
+            }
 
             return date;
+        }
+
+        function checkForm() {
+            var dateIsSet = !!(selectedDates[0] && selectedDates[1]);
+            var timeIsSet = !!(selectedDateTimes['start'] && selectedDateTimes['end']);
+
+            var select = that.el.form.querySelector('[data-field="amount"]');
+
+            select.disabled = !(dateIsSet && timeIsSet && (selectedAmount > 0));
+            that.el.button.disabled = !(dateIsSet && timeIsSet && (selectedAmount > 0));
         }
 
         /**
@@ -1123,7 +1142,7 @@
             that.el.header.deleteButton.addEventListener(eventName, reset);
             that.el.calendar.header.childNodes[0].addEventListener(eventName, prevMonth);
             that.el.calendar.header.childNodes[2].addEventListener(eventName, nextMonth);
-            that.el.calendar.header.childNodes[1].childNodes[0].addEventListener(eventName, function () {
+            /*that.el.calendar.header.childNodes[1].childNodes[0].addEventListener(eventName, function () {
                 if (that.el.calendar.monthPicker.classList.contains('d-show')) {
                     that.el.calendar.monthPicker.classList.remove('d-show');
                 } else {
@@ -1139,7 +1158,7 @@
                     that.el.calendar.yearPicker.classList.add('d-show');
                 }
                 that.el.calendar.monthPicker.classList.remove('d-show');
-            });
+            });*/
             that.el.button.addEventListener(eventName, hide);
 
             that.el.overlay.addEventListener(eventName, function () {

@@ -310,6 +310,10 @@ $spin: -15;
       padding: 12px 4%;
       border-top: 1px solid #eaeaea;
 
+      @media(max-width: 375px) {
+        padding: 8px 3%;
+      }
+
       &.d-form-field-half {
         width: 50%;
       }
@@ -353,6 +357,11 @@ $spin: -15;
           display: none;
           -webkit-appearance: none;
           margin: 0
+        }
+
+        &:focus {
+          border: none;
+          outline: #3f7cac auto medium;
         }
       }
 
