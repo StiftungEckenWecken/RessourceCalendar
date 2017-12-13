@@ -352,7 +352,7 @@
                 placeholderOption.innerText = '0';
 
                 fieldAmount.appendChild(placeholderOption);
-                fieldAmount.addEventListener('change', amountChange);
+                fieldAmount.onchange = amountChange;
 
                 field.appendChild(fieldAmount);
 
@@ -863,10 +863,14 @@
 
         /**
          *
-         * @param e : Event
+         * @param v
          */
-        function amountChange(e) {
-            selectedAmount = e.currentTarget.value;
+        function amountChange(v) {
+            if (typeof v === 'number') {
+                selectedAmount = v
+            } else if (v.currentTarget) {
+                selectedAmount = v.currentTarget.value;
+            }
 
             checkForm();
         }
@@ -929,7 +933,7 @@
 
             var select = that.el.form.querySelector('[data-field="amount"]');
 
-            select.disabled = !(dateIsSet && timeIsSet && (selectedAmount > 0));
+            select.disabled = !(dateIsSet && timeIsSet);
             that.el.button.disabled = !(dateIsSet && timeIsSet && (selectedAmount > 0));
         }
 
@@ -970,10 +974,8 @@
             }
 
             if (value !== amount.toString()) {
-                var changeEvent = new Event('change');
-
-                select.value = amount;
-                select.dispatchEvent(changeEvent);
+                console.log(select)
+                select.onchange(amount);
             }
         }
 
