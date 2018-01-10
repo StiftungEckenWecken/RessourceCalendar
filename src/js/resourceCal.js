@@ -69,8 +69,8 @@
                 dayNames: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
                 weekStart: 1,
                 deleteLabel: 'löschen',
-                startLabel: 'Beginn',
-                endLabel: 'Ende',
+                startLabel: 'Beginn:',
+                endLabel: 'Ende:',
                 amountLabel: 'Verfügbare Anzahl',
                 datePlaceholder: 'Datum',
                 timePlaceholder: 'Uhrzeit'
@@ -109,6 +109,7 @@
         var weekStart = null;
         var locked = false;
         var totalAmount = 0;
+        var amountHint = null;
 
         function generateDaynames() {
             that.el.calendar.days.innerHTML = '';
@@ -221,8 +222,17 @@
 
             var amountSelectField = generateSelectField('amount', languages[lang].amountLabel);
 
+            if (amountHint) {
+                var amountHintP = document.createElement('p');
+                amountHintP.setAttribute('class', 'd-form-p d-form-field-inline');
+                amountHintP.innerHTML = amountHint;
+            }
+
             that.el.form.appendChild(startDateField);
             that.el.form.appendChild(endDateField);
+            if (amountHintP) {
+                that.el.form.appendChild(amountHintP);
+            }
             that.el.form.appendChild(amountSelectField);
 
             function generateTimeFormFieldFallback(name, timeInput) {
@@ -1544,6 +1554,18 @@
                         totalAmount = x;
                     } else {
                         totalAmount = 0;
+                    }
+                }
+            },
+            "amountHint": {
+                get: function () {
+                    return amountHint;
+                },
+                set: function (x) {
+                    if (typeof x == 'string') {
+                        amountHint = x;
+                    } else {
+                        amountHint = null;
                     }
                 }
             },

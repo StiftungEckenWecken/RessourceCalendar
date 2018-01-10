@@ -265,6 +265,16 @@
         -ms-flex-pack: center;
             justify-content: center;
     background-color: white; }
+
+.ResourceCal .d-form .d-form-p {
+    margin: 0;
+    padding: 0.2rem 4%;
+    font-size: .95rem;
+    text-align: left;
+    width: 100%;
+    border-top: 1px solid #eaeaea;
+    background-color: #f7f7f7;
+}
     .ResourceCal .d-form .d-form-field {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -287,29 +297,38 @@
 .ResourceCal .d-form .d-form-field.d-form-field-half {
     width: 50%;
 }
-      .ResourceCal .d-form .d-form-field ~ .d-form-field {
-        border-left: 1px solid #eaeaea; }
 
-.ResourceCal .d-form .d-form-field .d-form-field-h, .ResourceCal .d-form .d-form-field .d-form-field-d, .ResourceCal .d-form .d-form-field .d-form-field-t, .ResourceCal .d-form .d-form-field .d-form-field-s {
-        width: 100%; }
+.ResourceCal .d-form .d-form-field.d-form-field-half ~ .d-form-field-half {
+    border-left: 1px solid #eaeaea;
+}
+
+.ResourceCal .d-form .d-form-field:last-of-type {
+    border-bottom: 1px solid #eaeaea;
+}
 
 .ResourceCal .d-form .d-form-field .d-form-field-h.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-d.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-t.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-s.d-form-field-inline {
     display: inline-block;
     width: auto;
 }
 
+.ResourceCal .d-form .d-form-field .d-form-field-t, .ResourceCal .d-form .d-form-field .d-form-field-s {
+    width: 100%;
+}
+
 @media (max-width: 426px) {
-    .ResourceCal .d-form .d-form-field .d-form-field-d.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-t.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-s.d-form-field-inline {
+    .ResourceCal .d-form .d-form-field .d-form-field-t.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-s.d-form-field-inline {
         -webkit-box-flex: 2;
         -ms-flex-positive: 2;
         flex-grow: 2;
     }
 }
       .ResourceCal .d-form .d-form-field .d-form-field-h {
-        font-weight: bold; }
+          font-weight: bold;
+          padding: .5rem .25rem;
+      }
       .ResourceCal .d-form .d-form-field .d-form-field-d {
-        padding: .5rem;
-        font-size: .875rem; }
+          padding: .5rem .25rem;
+      }
 
 .ResourceCal .d-form .d-form-field .d-form-field-t {
     margin: 0;

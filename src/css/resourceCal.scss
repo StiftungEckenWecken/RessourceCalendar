@@ -302,6 +302,16 @@ $spin: -15;
     justify-content: center;
     background-color: white;
 
+    .d-form-p {
+      margin: 0;
+      padding: 0.2rem 4%;
+      font-size: .95rem;
+      text-align: left;
+      width: 100%;
+      border-top: 1px solid #eaeaea;
+      background-color: #f7f7f7;
+    }
+
     .d-form-field {
       display: flex;
       flex-wrap: wrap;
@@ -316,14 +326,17 @@ $spin: -15;
 
       &.d-form-field-half {
         width: 50%;
+
+        & ~ .d-form-field-half {
+          border-left: 1px solid #eaeaea;
+        }
       }
 
-      & ~ .d-form-field {
-        border-left: 1px solid #eaeaea;
+      &:last-of-type {
+        border-bottom: 1px solid #eaeaea;
       }
 
       .d-form-field-h, .d-form-field-d, .d-form-field-t, .d-form-field-s {
-        width: 100%;
 
         &.d-form-field-inline {
           display: inline-block;
@@ -331,7 +344,8 @@ $spin: -15;
         }
       }
 
-      .d-form-field-d, .d-form-field-t, .d-form-field-s {
+      .d-form-field-t, .d-form-field-s {
+        width: 100%;
 
         &.d-form-field-inline {
 
@@ -343,11 +357,11 @@ $spin: -15;
 
       .d-form-field-h {
         font-weight: bold;
+        padding: .5rem .25rem;
       }
 
       .d-form-field-d {
-        padding: .5rem;
-        font-size: .875rem;
+        padding: .5rem .25rem;
       }
 
       .d-form-field-t {
