@@ -30,6 +30,7 @@
                 var blockedEvents = demoEvents.filter(function (e) {
                     return !!e.blocking;
                 });
+                console.log(blockedEvents)
                 var now = new Date();
                 var cal = new ResourceCal({
                     range: true,
