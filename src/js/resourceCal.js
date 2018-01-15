@@ -1,7 +1,9 @@
 /*!
- * Datepickk
- * Docs & License: https://crsten.github.com/datepickk
+ * ResourceCal based on datepickk
+ * Licence and Doc: https://github.com/StiftungEckenWecken/RessourceCalendar/
+ * 
  * (c) 2016 Carsten Jacobsen
+ * (c) 2017 Lukas Speck
  */
 (function () {
 
