@@ -293,11 +293,12 @@ $spin: -15;
   }
 
   .d-form {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     max-width: 600px;
-    z-index: 2;
+    z-index: 3;
     color: #4d4d4d;
     justify-content: center;
     background-color: white;
