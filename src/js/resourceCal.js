@@ -20,39 +20,6 @@
         var currentMonth = new Date().getMonth() + 1;
 
         var languages = {
-            no: {
-                monthNames: ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'],
-                dayNames: ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'],
-                weekStart: 1,
-                deleteLabel: 'delete',
-                startLabel: 'Start',
-                endLabel: 'End',
-                amountLabel: 'Amount',
-                datePlaceholder: 'Date',
-                timePlaceholder: 'Time'
-            },
-            se: {
-                monthNames: ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'],
-                dayNames: ['sö', 'må', 'ti', 'on', 'to', 'fr', 'lö'],
-                weekStart: 1,
-                deleteLabel: 'delete',
-                startLabel: 'Start',
-                endLabel: 'End',
-                amountLabel: 'Amount',
-                datePlaceholder: 'Date',
-                timePlaceholder: 'Time'
-            },
-            ru: {
-                monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                dayNames: ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
-                weekStart: 1,
-                deleteLabel: 'delete',
-                startLabel: 'Start',
-                endLabel: 'End',
-                amountLabel: 'Amount',
-                datePlaceholder: 'Date',
-                timePlaceholder: 'Time'
-            },
             en: {
                 monthNames: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
                 dayNames: ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'],
@@ -69,8 +36,8 @@
                 dayNames: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
                 weekStart: 1,
                 deleteLabel: 'löschen',
-                startLabel: 'Beginn',
-                endLabel: 'Ende',
+                startLabel: 'Beginn:',
+                endLabel: 'Ende:',
                 amountLabel: 'Verfügbare Anzahl',
                 datePlaceholder: 'Datum',
                 timePlaceholder: 'Uhrzeit'
@@ -109,6 +76,7 @@
         var weekStart = null;
         var locked = false;
         var totalAmount = 0;
+        var amountHint = null;
 
         function generateDaynames() {
             that.el.calendar.days.innerHTML = '';
@@ -221,8 +189,17 @@
 
             var amountSelectField = generateSelectField('amount', languages[lang].amountLabel);
 
+            if (amountHint) {
+                var amountHintP = document.createElement('p');
+                amountHintP.setAttribute('class', 'd-form-p d-form-field-inline');
+                amountHintP.innerHTML = amountHint;
+            }
+
             that.el.form.appendChild(startDateField);
             that.el.form.appendChild(endDateField);
+            if (amountHintP) {
+                that.el.form.appendChild(amountHintP);
+            }
             that.el.form.appendChild(amountSelectField);
 
             function generateTimeFormFieldFallback(name, timeInput) {
@@ -239,8 +216,9 @@
                     minuteSelect.value = '00';
                 }
 
-                function setTime() {
+                function setTime(e) {
                     timeInput.value = hourSelect.value + ':' + minuteSelect.value;
+                    timeChange(e);
                 }
 
                 function getTime() {
@@ -323,12 +301,11 @@
 
                 if (fieldTime.type === 'text') {
                     fieldTime.style.display = 'none';
-
                     field.appendChild(generateTimeFormFieldFallback(name, fieldTime));
                 }
 
                 fieldTime.addEventListener('change', timeChange);
-
+            
                 return field;
             }
 
@@ -434,6 +411,7 @@
                 } else {
                     startDay -= ws;
                 }
+                
                 var monthText = languages[lang].monthNames[parseMonth(month - 1 + index)];
                 element.setAttribute('data-month', monthText);
 
@@ -459,9 +437,13 @@
                             inputEl.setAttribute('disabled', true);
                         }
                     } else if (i < days + startDay) {
+                        // regular day
                         date = new Date(year, month + index - 1, i - startDay + 1);
-                        labelEl.childNodes[0].innerHTML = i - startDay + 1;
-                        labelEl.className = '';
+                        var currentDay = (i - startDay + 1);
+                        labelEl.childNodes[0].innerHTML = currentDay;
+                        if (currentDay < moment().format('D')) {
+                         labelEl.className = 'prev';
+                        }
                     } else {
                         labelEl.childNodes[0].innerHTML = i - days - startDay + 1;
                         if (index == monthElements.length - 1) {
@@ -847,14 +829,43 @@
         }
 
         /**
-         *
          * @param e : Event
+         * Extended by Felix to handle input from fallback field's
          */
         function timeChange(e) {
             var input = this;
+            
+            if (typeof e.currentTarget !== 'undefined') {
+              input = e.currentTarget
+            }
+            
             var name = input.getAttribute('data-time-field');
+            var value = input.value;
+            
+            switch (name) {
+              // only for fallback input's
+              case 'start-hour' :
+                name = 'start';
+                value += ':' + document.querySelector('[data-time-field="start-minute"]').value
+              break;
+   
+              case 'start-minute' :
+                name = 'start';
+                value = document.querySelector('[data-time-field="start-hour"]').value + ':' + value
+              break;
+                 
+              case 'end-hour' :
+                name = 'end'
+                value += ':' + document.querySelector('[data-time-field="end-minute"]').value
+              break;
+            
+              case 'end-minute' :
+                name = 'end';
+                value = document.querySelector('[data-time-field="end-hour"]').value + ':' + value
+              break;
+            }
 
-            setTime(name, input.value);
+            setTime(name, value);
 
             // check again for free amount
             setAmount(getFreeAmount(selectedDates[0], selectedDates[1]));
@@ -932,6 +943,8 @@
             var timeIsSet = !!(selectedDateTimes['start'] && selectedDateTimes['end']);
 
             var select = that.el.form.querySelector('[data-field="amount"]');
+            
+            console.log(dateIsSet, timeIsSet);
 
             select.disabled = !(dateIsSet && timeIsSet);
             that.el.button.disabled = !(dateIsSet && timeIsSet && (selectedAmount > 0));
@@ -1092,6 +1105,7 @@
          * @param properties
          */
         function show(properties) {
+            
             if (!that.inline && that.container === document.body) {
                 document.body.classList.add('d-noscroll');
             }
@@ -1544,6 +1558,18 @@
                         totalAmount = x;
                     } else {
                         totalAmount = 0;
+                    }
+                }
+            },
+            "amountHint": {
+                get: function () {
+                    return amountHint;
+                },
+                set: function (x) {
+                    if (typeof x == 'string') {
+                        amountHint = x;
+                    } else {
+                        amountHint = null;
                     }
                 }
             },

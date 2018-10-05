@@ -75,87 +75,62 @@
     font-size: 30px;
     margin: 25px 0;
     z-index: 2; }
-
-.ResourceCal .d-header {
+  .ResourceCal .d-header {
     position: relative;
     -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+            box-sizing: border-box;
     z-index: 2;
     height: 44px;
     width: 100%;
     max-width: 600px;
-    background-color: #162b3c;
-}
-
-@media (max-width: 375px) {
-    .ResourceCal .d-header {
-        height: 40px;
-    }
-}
-
-.ResourceCal .d-header .d-delete-button, .ResourceCal .d-header .d-close-button {
-    padding: 0;
-    background-color: transparent;
-    color: white;
-}
-
-@media (max-width: 375px) {
+    background-color: #162b3c; }
+    @media (max-width: 375px) {
+      .ResourceCal .d-header {
+        height: 40px; } }
     .ResourceCal .d-header .d-delete-button, .ResourceCal .d-header .d-close-button {
-        margin-top: 0;
-        width: auto;
-    }
-}
-
-.ResourceCal .d-header .d-close-button {
-    padding: 0 1.2rem 4px;
-    font-size: 1.7rem;
-}
-
-@media (max-width: 375px) {
+      padding: 0;
+      background-color: transparent;
+      color: white; }
+      @media (max-width: 375px) {
+        .ResourceCal .d-header .d-delete-button, .ResourceCal .d-header .d-close-button {
+          margin-top: 0;
+          width: auto; } }
     .ResourceCal .d-header .d-close-button {
-        padding: 4px 1rem;
-        font-size: 1.4rem;
-    }
-}
-
-.ResourceCal .d-header .d-delete-button {
-    padding: .5rem 1rem;
-    float: right;
-}
-
-@media (max-width: 375px) {
+      padding: 0 1.2rem 4px;
+      font-size: 1.7rem; }
+      @media (max-width: 375px) {
+        .ResourceCal .d-header .d-close-button {
+          padding: 4px 1rem;
+          font-size: 1.4rem; } }
     .ResourceCal .d-header .d-delete-button {
-        font-size: 1rem;
-    }
-}
+      padding: .5rem 1rem;
+      float: right; }
+      @media (max-width: 375px) {
+        .ResourceCal .d-header .d-delete-button {
+          font-size: 1rem; } }
   .ResourceCal .d-confirm {
     position: relative;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      z-index: 2;
-      width: 100%;
-      max-width: 600px;
-      background-color: white;
-  }
-
-.ResourceCal .d-confirm .d-confirm-button {
-    width: 100%;
-    outline: none;
-    font-family: inherit;
-    color: white;
-    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     z-index: 2;
-    margin: 12px 4%;
-    padding: 4px 0;
-}
-
-.ResourceCal .d-confirm .d-confirm-button[disabled] {
-    cursor: not-allowed;
-    background-color: #333333;
-}
+    width: 100%;
+    max-width: 600px;
+    background-color: white; }
+    .ResourceCal .d-confirm .d-confirm-button {
+      width: 100%;
+      outline: none;
+      font-family: inherit;
+      color: white;
+      cursor: pointer;
+      z-index: 2;
+      margin: 12px 4%;
+      padding: 4px 0; }
+      .ResourceCal .d-confirm .d-confirm-button[disabled] {
+        cursor: not-allowed;
+        background-color: #333333; }
   .ResourceCal .d-title:empty, .ResourceCal .d-confirm:empty {
     display: none; }
   @media (max-height: 528px) {
@@ -252,6 +227,7 @@
         display: inline-block;
         margin-right: 10px; }
   .ResourceCal .d-form {
+    position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -259,78 +235,69 @@
         flex-wrap: wrap;
     width: 100%;
     max-width: 600px;
-    z-index: 2;
+    z-index: 3;
     color: #4d4d4d;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
     background-color: white; }
+    .ResourceCal .d-form .d-form-p {
+      margin: 0;
+      padding: 0.2rem 4%;
+      font-size: .9rem;
+      text-align: left;
+      width: 100%;
+      border-top: 1px solid #eaeaea;
+      background-color: #f7f7f7; }
     .ResourceCal .d-form .d-form-field {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        width: 100%;
-        padding: 12px 4%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      width: 100%;
+      padding: 12px 4%;
       border-top: 1px solid #eaeaea; }
-
-@media (max-width: 375px) {
-    .ResourceCal .d-form .d-form-field {
-        padding: 8px 3%;
-    }
-}
-
-.ResourceCal .d-form .d-form-field.d-form-field-half {
-    width: 50%;
-}
-      .ResourceCal .d-form .d-form-field ~ .d-form-field {
-        border-left: 1px solid #eaeaea; }
-
-.ResourceCal .d-form .d-form-field .d-form-field-h, .ResourceCal .d-form .d-form-field .d-form-field-d, .ResourceCal .d-form .d-form-field .d-form-field-t, .ResourceCal .d-form .d-form-field .d-form-field-s {
+      @media (max-width: 375px) {
+        .ResourceCal .d-form .d-form-field {
+          padding: 8px 3%; } }
+      .ResourceCal .d-form .d-form-field.d-form-field-half {
+        width: 50%; }
+        .ResourceCal .d-form .d-form-field.d-form-field-half ~ .d-form-field-half {
+          border-left: 1px solid #eaeaea; }
+      .ResourceCal .d-form .d-form-field:last-of-type {
+        border-bottom: 1px solid #eaeaea; }
+      .ResourceCal .d-form .d-form-field .d-form-field-h.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-d.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-t.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-s.d-form-field-inline {
+        display: inline-block;
+        width: auto; }
+      .ResourceCal .d-form .d-form-field .d-form-field-t, .ResourceCal .d-form .d-form-field .d-form-field-s {
         width: 100%; }
-
-.ResourceCal .d-form .d-form-field .d-form-field-h.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-d.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-t.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-s.d-form-field-inline {
-    display: inline-block;
-    width: auto;
-}
-
-@media (max-width: 426px) {
-    .ResourceCal .d-form .d-form-field .d-form-field-d.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-t.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-s.d-form-field-inline {
-        -webkit-box-flex: 2;
-        -ms-flex-positive: 2;
-        flex-grow: 2;
-    }
-}
+        @media (max-width: 426px) {
+          .ResourceCal .d-form .d-form-field .d-form-field-t.d-form-field-inline, .ResourceCal .d-form .d-form-field .d-form-field-s.d-form-field-inline {
+            -webkit-box-flex: 2;
+                -ms-flex-positive: 2;
+                    flex-grow: 2; } }
       .ResourceCal .d-form .d-form-field .d-form-field-h {
-        font-weight: bold; }
+        font-weight: bold;
+        padding: .5rem .25rem; }
       .ResourceCal .d-form .d-form-field .d-form-field-d {
-        padding: .5rem;
-        font-size: .875rem; }
-
-.ResourceCal .d-form .d-form-field .d-form-field-t {
-    margin: 0;
-}
-
-.ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-clear-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-inner-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-outer-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.ResourceCal .d-form .d-form-field .d-form-field-t:focus {
-    border: none;
-    outline: #3f7cac auto medium;
-}
-
-.ResourceCal .d-form .d-form-field .d-form-field-s {
-    margin-left: 15px;
-    padding-right: 20px;
-    min-width: 80px;
-}
+        padding: .5rem .25rem; }
+      .ResourceCal .d-form .d-form-field .d-form-field-t {
+        margin: 0; }
+        .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-clear-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-inner-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-outer-spin-button, .ResourceCal .d-form .d-form-field .d-form-field-t::-webkit-calendar-picker-indicator {
+          display: none;
+          -webkit-appearance: none;
+          margin: 0; }
+        .ResourceCal .d-form .d-form-field .d-form-field-t:focus {
+          border: none;
+          outline: #3f7cac auto medium; }
+      .ResourceCal .d-form .d-form-field .d-form-field-s {
+        margin-left: 15px;
+        padding-right: 20px;
+        min-width: 80px; }
       .ResourceCal .d-form .d-form-field .d-form-field-t-fallback {
         width: 100%; }
         .ResourceCal .d-form .d-form-field .d-form-field-t-fallback:before, .ResourceCal .d-form .d-form-field .d-form-field-t-fallback:after {
@@ -351,7 +318,7 @@
     width: 100%;
     position: relative;
     max-width: 600px;
-      max-height: 450px;
+    max-height: 450px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -366,389 +333,282 @@
         -ms-flex-positive: 1;
             flex-grow: 1;
     z-index: 2; }
-
-.ResourceCal .d-calendar .d-calendar-header {
-    position: relative;
-    background-color: #316187;
-    color: white;
-    font-size: 1.5em;
-}
-
-.ResourceCal .d-calendar .d-calendar-header p {
-    margin: .5em 0;
-    text-align: center;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i {
-    position: absolute;
-    top: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    text-align: center;
-    border-radius: 100%;
-    -webkit-transition: background-color .2s ease;
-    transition: background-color .2s ease;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
-
-.ResourceCal .d-calendar .d-calendar-header i:before, .ResourceCal .d-calendar .d-calendar-header i:after {
-    content: '';
-    width: 0;
-    height: 0;
-    position: absolute;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i:before {
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i:after {
-    border-top: 7px solid transparent;
-    border-bottom: 7px solid transparent;
-    -webkit-transition: border-color .2s ease;
-    transition: border-color .2s ease;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i#d-previous {
-    left: 20px;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i#d-previous:before {
-    border-right: 10px solid white;
-    top: 5px;
-    left: 7px;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i#d-previous:after {
-    border-right: 7px solid #316187;
-    top: 8px;
-    left: 10px;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i#d-next {
-    right: 20px;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i#d-next:before {
-    border-left: 10px solid white;
-    top: 5px;
-    left: 12px;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i#d-next:after {
-    border-left: 7px solid #316187;
-    top: 8px;
-    left: 12px;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i:hover {
-    background-color: #3f7cac;
-}
-
-.ResourceCal .d-calendar .d-calendar-header i:hover:after {
-    border-left-color: #3f7cac !important;
-    border-right-color: #3f7cac !important;
-}
-
-.ResourceCal .d-calendar .d-month {
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.ResourceCal .d-calendar .d-year {
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.ResourceCal .d-calendar .d-year:before {
-    content: "";
-}
-
-.ResourceCal .d-calendar .d-month-picker {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    background-color: rgba(27, 54, 63, 0.9);
-    height: 0;
-    overflow: hidden;
-    pointer-events: none;
-    -webkit-transition: height .2s ease;
-    transition: height .2s ease;
-}
-
-.ResourceCal .d-calendar .d-month-picker.d-show {
-    height: 44px;
-    pointer-events: auto;
-}
-
-.ResourceCal .d-calendar .d-month-picker > div {
-    width: calc(100% / 12);
-    text-align: center;
-    line-height: 44px;
-    color: white;
-    cursor: pointer;
-}
-
-.ResourceCal .d-calendar .d-month-picker > div:hover, .ResourceCal .d-calendar .d-month-picker > div:focus {
-    background-color: #316187;
-    color: white;
-}
-
-.ResourceCal .d-calendar .d-month-picker > div.current {
-    background-color: #3f7cac;
-    color: white;
-}
-
-.ResourceCal .d-calendar .d-year-picker {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    background-color: rgba(27, 54, 63, 0.9);
-    height: 0;
-    overflow: hidden;
-    pointer-events: none;
-    -webkit-transition: height .2s ease;
-    transition: height .2s ease;
-}
-
-.ResourceCal .d-calendar .d-year-picker.d-show {
-    height: 44px;
-    pointer-events: auto;
-}
-
-.ResourceCal .d-calendar .d-year-picker > div {
-    width: calc(100% / 11);
-    text-align: center;
-    line-height: 44px;
-    cursor: pointer;
-}
-
-.ResourceCal .d-calendar .d-year-picker > div:hover, .ResourceCal .d-calendar .d-year-picker > div:focus {
-    background-color: #316187;
-    color: white;
-}
-
-.ResourceCal .d-calendar .d-year-picker > div.current {
-    background-color: #3f7cac, 25;
-    color: white;
-}
-
-.ResourceCal .d-calendar .d-weekdays {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-}
-
-.ResourceCal .d-calendar .d-week {
-    background-color: white;
-    color: black;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    width: 100%;
-    border-bottom: 1px solid #eaeaea;
-}
-
-.ResourceCal .d-calendar .d-week + .d-week {
-    border-left: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.ResourceCal .d-calendar .d-week > div {
-    -ms-flex-preferred-size: calc(100% / 7);
-    flex-basis: calc(100% / 7);
-    text-align: center;
-}
-
-.ResourceCal .d-calendar .d-week > div p {
-    margin: .3em 0;
-}
-
-@media (max-height: 540px) {
-    .ResourceCal .d-calendar .d-week > div p {
-        margin: .1em 0;
-        font-size: .8rem;
-    }
-}
-
-.ResourceCal .d-calendar .d-table {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-}
-
-.ResourceCal .d-calendar .d-table:first-child:nth-last-child(n + 3), .ResourceCal .d-calendar .d-table:first-child:nth-last-child(n + 3) ~ div {
-    -webkit-box-flex: 0;
-    -ms-flex: 0;
-    flex: 0;
-    -ms-flex-preferred-size: calc(100% / 3 - 1px);
-    flex-basis: calc(100% / 3 - 1px);
-    /*-1px due to browser render*/
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.ResourceCal .d-calendar .d-table label:nth-of-type(7n) .d-date-legends {
-    padding-right: 0;
-}
-
-.ResourceCal .d-calendar .d-table label:nth-last-of-type(-n + 7) .d-date-legends {
-    padding-bottom: 0;
-}
-
-.ResourceCal .d-calendar .d-table .d-date {
-    position: relative;
-    flex-basis: calc(100% / 7);
-    -ms-flex-preferred-size: 14.28%;
-    /* Keep -> IE render fail */
-}
-
-.ResourceCal .d-calendar .d-table .d-date input {
-    display: none;
-}
-
-.ResourceCal .d-calendar .d-table .d-date input:disabled + label {
-    cursor: not-allowed;
-}
-
-.ResourceCal .d-calendar .d-table .d-date input:disabled + label text:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -1rem;
-    width: 2.5rem;
-    height: 2px;
-    z-index: 10;
-    background-color: #c60000;
-    -webkit-transform-origin: center;
-    transform-origin: center;
-    -webkit-transform: rotate(-25deg);
-    transform: rotate(-25deg);
-}
-
-.ResourceCal .d-calendar .d-table .d-date input + label.d-hidden {
-    cursor: default;
-    color: #ccc !important;
-    background: #f0f0f0 !important;
-    text-decoration: line-through;
-}
-
-.ResourceCal .d-calendar .d-table .d-date input + label.d-hidden:after {
-    content: none;
-}
-
-.ResourceCal .d-calendar .d-table .d-date label {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    cursor: pointer;
-    -webkit-transition: background-color .2s ease, background .2s ease, color .2s ease;
-    transition: background-color .2s ease, background .2s ease, color .2s ease;
-    position: relative;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.ResourceCal .d-calendar .d-table .d-date label:before {
-    content: '';
-    position: absolute;
-    top: calc(50% - 1.4rem);
-    left: calc(50% - 1.4rem);
-    height: 2.8rem;
-    width: 2.8rem;
-    border-radius: 50%;
-    background-color: #7DD076;
-    -webkit-transition: -webkit-transform 0.1s ease-out;
-    transition: -webkit-transform 0.1s ease-out;
-    transition: transform 0.1s ease-out;
-    transition: transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
-    -webkit-transform: scale(0);
-    transform: scale(0);
-    -webkit-transform-origin: left;
-    transform-origin: left;
-    z-index: 4;
-}
-
-@media screen and (max-width: 425px) {
-    .ResourceCal .d-calendar .d-table .d-date label:before {
-        height: 2.2rem;
-        width: 2.2rem;
-        top: calc(50% - 1.1rem);
-        left: calc(50% - 1.1rem);
-    }
-}
-
-.ResourceCal .d-calendar .d-table .d-date label:after {
-    content: '';
-    position: absolute;
-    top: calc(50% - 1.4rem);
-    bottom: calc(50% - 1.4rem);
-    width: 100%;
-    height: 2.8rem;
-    right: 0;
-    background-color: #7DD076;
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-    z-index: 2;
-}
-
-@media screen and (max-width: 425px) {
-    .ResourceCal .d-calendar .d-table .d-date label:after {
-        height: 2.2rem;
-        top: calc(50% - 1.1rem);
-    }
-}
-
-.ResourceCal .d-calendar .d-table .d-date label text {
-    z-index: 9;
-    pointer-events: none;
-    position: relative;
-    font-size: 1.2rem;
-}
-
-.ResourceCal .d-calendar .d-table .d-date label[style*="linear-gradient"] text {
-    text-shadow: 0 0 20px black;
-}
-
-.ResourceCal .d-calendar .d-table .d-date label.today text:before {
-    content: '';
-    width: 100%;
-    height: 2px;
-    background-color: #3f7cac;
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-}
-
-.ResourceCal .d-calendar .d-table .d-date label.legend-hover {
-    -webkit-animation: legendhover 1s infinite;
-    animation: legendhover 1s infinite;
-    z-index: 10;
-}
+    .ResourceCal .d-calendar .d-calendar-header {
+      position: relative;
+      background-color: #316187;
+      color: white;
+      font-size: 1.5em; }
+      .ResourceCal .d-calendar .d-calendar-header p {
+        margin: .5em 0;
+        text-align: center; }
+      .ResourceCal .d-calendar .d-calendar-header i {
+        position: absolute;
+        top: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 100%;
+        -webkit-transition: background-color .2s ease;
+        transition: background-color .2s ease;
+        -webkit-transform: translateY(-50%);
+                transform: translateY(-50%); }
+        .ResourceCal .d-calendar .d-calendar-header i:before, .ResourceCal .d-calendar .d-calendar-header i:after {
+          content: '';
+          width: 0;
+          height: 0;
+          position: absolute; }
+        .ResourceCal .d-calendar .d-calendar-header i:before {
+          border-top: 10px solid transparent;
+          border-bottom: 10px solid transparent; }
+        .ResourceCal .d-calendar .d-calendar-header i:after {
+          border-top: 7px solid transparent;
+          border-bottom: 7px solid transparent;
+          -webkit-transition: border-color .2s ease;
+          transition: border-color .2s ease; }
+        .ResourceCal .d-calendar .d-calendar-header i#d-previous {
+          left: 20px; }
+          .ResourceCal .d-calendar .d-calendar-header i#d-previous:before {
+            border-right: 10px solid white;
+            top: 5px;
+            left: 7px; }
+          .ResourceCal .d-calendar .d-calendar-header i#d-previous:after {
+            border-right: 7px solid #316187;
+            top: 8px;
+            left: 10px; }
+        .ResourceCal .d-calendar .d-calendar-header i#d-next {
+          right: 20px; }
+          .ResourceCal .d-calendar .d-calendar-header i#d-next:before {
+            border-left: 10px solid white;
+            top: 5px;
+            left: 12px; }
+          .ResourceCal .d-calendar .d-calendar-header i#d-next:after {
+            border-left: 7px solid #316187;
+            top: 8px;
+            left: 12px; }
+        .ResourceCal .d-calendar .d-calendar-header i:hover {
+          background-color: #3f7cac; }
+          .ResourceCal .d-calendar .d-calendar-header i:hover:after {
+            border-left-color: #3f7cac !important;
+            border-right-color: #3f7cac !important; }
+    .ResourceCal .d-calendar .d-month {
+      cursor: pointer;
+      white-space: nowrap; }
+    .ResourceCal .d-calendar .d-year {
+      margin-left: 10px;
+      cursor: pointer; }
+      .ResourceCal .d-calendar .d-year:before {
+        content: ""; }
+    .ResourceCal .d-calendar .d-month-picker {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      background-color: rgba(27, 54, 63, 0.9);
+      height: 0;
+      overflow: hidden;
+      pointer-events: none;
+      -webkit-transition: height .2s ease;
+      transition: height .2s ease; }
+      .ResourceCal .d-calendar .d-month-picker.d-show {
+        height: 44px;
+        pointer-events: auto; }
+      .ResourceCal .d-calendar .d-month-picker > div {
+        width: calc(100% / 12);
+        text-align: center;
+        line-height: 44px;
+        color: white;
+        cursor: pointer; }
+        .ResourceCal .d-calendar .d-month-picker > div:hover, .ResourceCal .d-calendar .d-month-picker > div:focus {
+          background-color: #316187;
+          color: white; }
+        .ResourceCal .d-calendar .d-month-picker > div.current {
+          background-color: #3f7cac;
+          color: white; }
+    .ResourceCal .d-calendar .d-year-picker {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      background-color: rgba(27, 54, 63, 0.9);
+      height: 0;
+      overflow: hidden;
+      pointer-events: none;
+      -webkit-transition: height .2s ease;
+      transition: height .2s ease; }
+      .ResourceCal .d-calendar .d-year-picker.d-show {
+        height: 44px;
+        pointer-events: auto; }
+      .ResourceCal .d-calendar .d-year-picker > div {
+        width: calc(100% / 11);
+        text-align: center;
+        line-height: 44px;
+        cursor: pointer; }
+        .ResourceCal .d-calendar .d-year-picker > div:hover, .ResourceCal .d-calendar .d-year-picker > div:focus {
+          background-color: #316187;
+          color: white; }
+        .ResourceCal .d-calendar .d-year-picker > div.current {
+          background-color: #3f7cac, 25;
+          color: white; }
+    .ResourceCal .d-calendar .d-weekdays {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex; }
+    .ResourceCal .d-calendar .d-week {
+      background-color: white;
+      color: black;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      width: 100%;
+      border-bottom: 1px solid #eaeaea; }
+      .ResourceCal .d-calendar .d-week + .d-week {
+        border-left: 1px solid rgba(255, 255, 255, 0.05); }
+      .ResourceCal .d-calendar .d-week > div {
+        -ms-flex-preferred-size: calc(100% / 7);
+            flex-basis: calc(100% / 7);
+        text-align: center; }
+        .ResourceCal .d-calendar .d-week > div p {
+          margin: .3em 0; }
+          @media (max-height: 540px) {
+            .ResourceCal .d-calendar .d-week > div p {
+              margin: .1em 0;
+              font-size: .8rem; } }
+    .ResourceCal .d-calendar .d-table {
+      width: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+      -webkit-box-flex: 1;
+          -ms-flex: 1;
+              flex: 1; }
+      .ResourceCal .d-calendar .d-table:first-child:nth-last-child(n + 3), .ResourceCal .d-calendar .d-table:first-child:nth-last-child(n + 3) ~ div {
+        -webkit-box-flex: 0;
+            -ms-flex: 0;
+                flex: 0;
+        -ms-flex-preferred-size: calc(100% / 3 - 1px);
+            flex-basis: calc(100% / 3 - 1px);
+        /*-1px due to browser render*/
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+      .ResourceCal .d-calendar .d-table label:nth-of-type(7n) .d-date-legends {
+        padding-right: 0; }
+      .ResourceCal .d-calendar .d-table label:nth-last-of-type(-n + 7) .d-date-legends {
+        padding-bottom: 0; }
+      .ResourceCal .d-calendar .d-table .d-date {
+        position: relative;
+        flex-basis: calc(100% / 7);
+        -ms-flex-preferred-size: 14.28%;
+        /* Keep -> IE render fail */ }
+        .ResourceCal .d-calendar .d-table .d-date input {
+          display: none; }
+          .ResourceCal .d-calendar .d-table .d-date input:disabled + label {
+            cursor: not-allowed; }
+            .ResourceCal .d-calendar .d-table .d-date input:disabled + label text:after {
+              content: '';
+              position: absolute;
+              top: 50%;
+              left: -1rem;
+              width: 2.5rem;
+              height: 2px;
+              z-index: 10;
+              background-color: #c60000;
+              -webkit-transform-origin: center;
+                      transform-origin: center;
+              -webkit-transform: rotate(-25deg);
+                      transform: rotate(-25deg); }
+          .ResourceCal .d-calendar .d-table .d-date input + label.d-hidden {
+            cursor: default;
+            color: #ccc !important;
+            background: #f0f0f0 !important;
+            text-decoration: line-through; }
+            .ResourceCal .d-calendar .d-table .d-date input + label.d-hidden:after {
+              content: none; }
+        .ResourceCal .d-calendar .d-table .d-date label {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          width: 100%;
+          height: 100%;
+          -webkit-box-align: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          -webkit-box-pack: center;
+              -ms-flex-pack: center;
+                  justify-content: center;
+          cursor: pointer;
+          -webkit-transition: background-color .2s ease, background .2s ease, color .2s ease;
+          transition: background-color .2s ease, background .2s ease, color .2s ease;
+          position: relative;
+          -webkit-tap-highlight-color: transparent;
+          -webkit-box-sizing: border-box;
+                  box-sizing: border-box;
+          margin-left: 0;
+          margin-right: 0; }
+          .ResourceCal .d-calendar .d-table .d-date label:before {
+            content: '';
+            position: absolute;
+            top: calc(50% - 1.4rem);
+            left: calc(50% - 1.4rem);
+            height: 2.8rem;
+            width: 2.8rem;
+            border-radius: 50%;
+            background-color: #7DD076;
+            -webkit-transition: -webkit-transform 0.1s ease-out;
+            transition: -webkit-transform 0.1s ease-out;
+            transition: transform 0.1s ease-out;
+            transition: transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
+            -webkit-transform: scale(0);
+                    transform: scale(0);
+            -webkit-transform-origin: left;
+                    transform-origin: left;
+            z-index: 4; }
+            @media screen and (max-width: 425px) {
+              .ResourceCal .d-calendar .d-table .d-date label:before {
+                height: 2.2rem;
+                width: 2.2rem;
+                top: calc(50% - 1.1rem);
+                left: calc(50% - 1.1rem); } }
+          .ResourceCal .d-calendar .d-table .d-date label:after {
+            content: '';
+            position: absolute;
+            top: calc(50% - 1.4rem);
+            bottom: calc(50% - 1.4rem);
+            width: 100%;
+            height: 2.8rem;
+            right: 0;
+            background-color: #7DD076;
+            -webkit-transform: scaleX(0);
+                    transform: scaleX(0);
+            z-index: 2; }
+            @media screen and (max-width: 425px) {
+              .ResourceCal .d-calendar .d-table .d-date label:after {
+                height: 2.2rem;
+                top: calc(50% - 1.1rem); } }
+          .ResourceCal .d-calendar .d-table .d-date label text {
+            z-index: 9;
+            pointer-events: none;
+            position: relative;
+            font-size: 1.2rem; }
+          .ResourceCal .d-calendar .d-table .d-date label[style*="linear-gradient"] text {
+            text-shadow: 0 0 20px black; }
+          .ResourceCal .d-calendar .d-table .d-date label.today text:before {
+            content: '';
+            width: 100%;
+            height: 2px;
+            background-color: #3f7cac;
+            position: absolute;
+            bottom: -5px;
+            left: 0; }
+          .ResourceCal .d-calendar .d-table .d-date label.legend-hover {
+            -webkit-animation: legendhover 1s infinite;
+                    animation: legendhover 1s infinite;
+            z-index: 10; }
 
 @-webkit-keyframes legendhover {
   0% {
@@ -771,246 +631,160 @@
   100% {
     -webkit-transform: translate(0, 0px);
             transform: translate(0, 0px); } }
-
-.ResourceCal .d-calendar .d-table .d-date label.next, .ResourceCal .d-calendar .d-table .d-date label.prev {
-    color: #ccc;
-}
-
-.ResourceCal .d-calendar .d-table .d-date label [data-tooltip]:after {
-    content: '';
-    border-radius: 100%;
-    background-color: #1B363F;
-    width: 5px;
-    height: 5px;
-    position: absolute;
-    top: 0;
-    right: -10px;
-}
-
-.ResourceCal .d-calendar .d-table .d-date label .d-tooltip {
-    position: absolute;
-    background-color: #1B363F;
-    color: #FFF;
-    padding: 7px;
-    font-size: .7em;
-    z-index: 13;
-    text-align: center;
-    top: 100%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -5px);
-    transform: translate(-50%, -5px);
-    display: none;
-}
-
-.ResourceCal .d-calendar .d-table .d-date label .d-tooltip:before {
-    content: '';
-    border-bottom: 7px solid #1B363F;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    top: -7px;
-    left: 50%;
-    position: absolute;
-    margin-left: -5px;
-}
-
-.ResourceCal .d-calendar .d-table .d-date label .d-tooltip:empty {
-    display: none !important;
-}
-
-.ResourceCal .d-calendar .d-table .d-date label:hover .d-tooltip {
-    display: block;
-}
-
-.ResourceCal .d-calendar .d-table .d-date.checked label, .ResourceCal .d-calendar .d-table .d-date.single label {
-    color: white;
-}
-
-.ResourceCal .d-calendar .d-table .d-date.checked label:before, .ResourceCal .d-calendar .d-table .d-date.single label:before {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-}
-
-.ResourceCal .d-calendar .d-tables {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    overflow: hidden;
-}
-
-.ResourceCal .d-calendar .d-tables:not(.locked) .d-date:not(.checked):hover label:not(.hidden) {
-    cursor: pointer;
-}
-
-.ResourceCal .d-calendar .d-tables:not(.locked) .d-date:not(.checked):hover label:not(.hidden):before {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    background-color: #8fd789;
-}
-
-.ResourceCal .d-calendar .d-tables.locked label {
-    cursor: default;
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked label:before {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked label:after {
-    -webkit-transform: scaleX(2);
-    transform: scaleX(2);
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked.first label:after {
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date label {
-    color: white;
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date label:before {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    background-color: #7DD076;
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date label:after {
-    -webkit-transform: scaleX(2);
-    transform: scaleX(2);
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last label:before {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last label:after {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    right: 50%;
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last ~ .d-date:not(.checked) label {
-    color: #666;
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last ~ .d-date:not(.checked) label:before {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last ~ .d-date:not(.checked) label:after {
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last ~ .d-date:not(.checked) label.next, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last ~ .d-date:not(.checked) label.prev {
-    color: #222;
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover label:before {
-    -webkit-transform: scale(1) !important;
-    transform: scale(1) !important;
-    background-color: #a1dd9c !important;
-    z-index: 5;
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover label:after {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-    right: 50%;
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date label, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:focus ~ .d-date label {
-    color: #666;
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date label:after, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:focus ~ .d-date label:after {
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date label.prev, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:focus ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:focus ~ .d-date label.prev {
-    color: #222;
-}
-
-.ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:not(.checked) label:before, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:focus ~ .d-date:not(.checked) label:before {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):not(.checked) label {
-    color: white;
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):not(.checked) label:before {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    background-color: #80add1;
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):not(.checked) label:after {
-    -webkit-transform: scaleX(2);
-    transform: scaleX(2);
-    background-color: #80add1;
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label {
-    color: inherit;
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label.prev {
-    color: #222;
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label:before {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label:after {
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover label:before {
-    -webkit-transform: scale(1) !important;
-    transform: scale(1) !important;
-    background-color: #a1dd9c !important;
-    z-index: 5;
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover label:after {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-    background-color: #80add1;
-    right: 50%;
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label {
-    color: #666;
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label:after, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label:after {
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label.prev, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label.prev {
-    color: #222;
-}
-
-.ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:not(.checked) label:before, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date:not(.checked) label:before {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-}
+          .ResourceCal .d-calendar .d-table .d-date label.next, .ResourceCal .d-calendar .d-table .d-date label.prev {
+            color: #ccc; }
+          .ResourceCal .d-calendar .d-table .d-date label [data-tooltip]:after {
+            content: '';
+            border-radius: 100%;
+            background-color: #1B363F;
+            width: 5px;
+            height: 5px;
+            position: absolute;
+            top: 0;
+            right: -10px; }
+          .ResourceCal .d-calendar .d-table .d-date label .d-tooltip {
+            position: absolute;
+            background-color: #1B363F;
+            color: #FFF;
+            padding: 7px;
+            font-size: .7em;
+            z-index: 13;
+            text-align: center;
+            top: 100%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -5px);
+                    transform: translate(-50%, -5px);
+            display: none; }
+            .ResourceCal .d-calendar .d-table .d-date label .d-tooltip:before {
+              content: '';
+              border-bottom: 7px solid #1B363F;
+              border-left: 5px solid transparent;
+              border-right: 5px solid transparent;
+              top: -7px;
+              left: 50%;
+              position: absolute;
+              margin-left: -5px; }
+            .ResourceCal .d-calendar .d-table .d-date label .d-tooltip:empty {
+              display: none !important; }
+          .ResourceCal .d-calendar .d-table .d-date label:hover .d-tooltip {
+            display: block; }
+        .ResourceCal .d-calendar .d-table .d-date.checked label, .ResourceCal .d-calendar .d-table .d-date.single label {
+          color: white; }
+          .ResourceCal .d-calendar .d-table .d-date.checked label:before, .ResourceCal .d-calendar .d-table .d-date.single label:before {
+            -webkit-transform: scaleX(1);
+                    transform: scaleX(1); }
+    .ResourceCal .d-calendar .d-tables {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+      overflow: hidden; }
+      .ResourceCal .d-calendar .d-tables:not(.locked) .d-date:not(.checked):hover label:not(.hidden) {
+        cursor: pointer; }
+        .ResourceCal .d-calendar .d-tables:not(.locked) .d-date:not(.checked):hover label:not(.hidden):before {
+          -webkit-transform: scale(1);
+                  transform: scale(1);
+          background-color: #8fd789; }
+      .ResourceCal .d-calendar .d-tables.locked label {
+        cursor: default; }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked label:before {
+        -webkit-transform: scale(1);
+                transform: scale(1); }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked label:after {
+        -webkit-transform: scaleX(2);
+                transform: scaleX(2); }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked.first label:after {
+        -webkit-transform: scaleX(0);
+                transform: scaleX(0); }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date label {
+        color: white; }
+        .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date label:before {
+          -webkit-transform: scale(1);
+                  transform: scale(1);
+          background-color: #7DD076; }
+        .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date label:after {
+          -webkit-transform: scaleX(2);
+                  transform: scaleX(2); }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last label:before {
+        -webkit-transform: scale(1);
+                transform: scale(1); }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last label:after {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+        right: 50%; }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last ~ .d-date:not(.checked) label {
+        color: #666; }
+        .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last ~ .d-date:not(.checked) label:before {
+          -webkit-transform: scale(0);
+                  transform: scale(0); }
+        .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last ~ .d-date:not(.checked) label:after {
+          -webkit-transform: scaleX(0);
+                  transform: scaleX(0); }
+        .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last ~ .d-date:not(.checked) label.next, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date.checked.last ~ .d-date:not(.checked) label.prev {
+          color: #222; }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover label:before {
+        -webkit-transform: scale(1) !important;
+                transform: scale(1) !important;
+        background-color: #a1dd9c !important;
+        z-index: 5; }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover label:after {
+        -webkit-transform: scaleX(1);
+                transform: scaleX(1);
+        right: 50%; }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date label, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:focus ~ .d-date label {
+        color: #666; }
+        .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date label:after, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:focus ~ .d-date label:after {
+          -webkit-transform: scaleX(0);
+                  transform: scaleX(0); }
+        .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date label.prev, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:focus ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:focus ~ .d-date label.prev {
+          color: #222; }
+      .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:not(.checked) label:before, .ResourceCal .d-calendar .d-tables.range:not(.before) .d-date:not(.single).checked ~ .d-date:hover ~ .d-date:focus ~ .d-date:not(.checked) label:before {
+        -webkit-transform: scale(0);
+                transform: scale(0); }
+      .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):not(.checked) label {
+        color: white; }
+        .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):not(.checked) label:before {
+          -webkit-transform: scale(1);
+                  transform: scale(1);
+          background-color: #80add1; }
+        .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):not(.checked) label:after {
+          -webkit-transform: scaleX(2);
+                  transform: scaleX(2);
+          background-color: #80add1; }
+      .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label {
+        color: inherit; }
+        .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label.prev {
+          color: #222; }
+        .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label:before {
+          -webkit-transform: scale(0);
+                  transform: scale(0); }
+        .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single).checked ~ .d-date label:after {
+          -webkit-transform: scaleX(0);
+                  transform: scaleX(0); }
+      .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover label:before {
+        -webkit-transform: scale(1) !important;
+                transform: scale(1) !important;
+        background-color: #a1dd9c !important;
+        z-index: 5; }
+      .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover label:after {
+        -webkit-transform: scaleX(1);
+                transform: scaleX(1);
+        background-color: #80add1;
+        right: 50%; }
+      .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label {
+        color: #666; }
+        .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label:after, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label:after {
+          -webkit-transform: scaleX(0);
+                  transform: scaleX(0); }
+        .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date label.prev, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label.next, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date label.prev {
+          color: #222; }
+      .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:not(.checked) label:before, .ResourceCal .d-calendar .d-tables.range.before .d-date:not(.single):hover ~ .d-date:focus ~ .d-date:not(.checked) label:before {
+        -webkit-transform: scale(0);
+                transform: scale(0); }
   .ResourceCal .d-fadeInUp {
     -webkit-backface-visibility: visible !important;
             backface-visibility: visible !important;
